@@ -1,0 +1,26 @@
+{
+  "name": "km-calculator-insi-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "extract": "python scripts/extract_workbook.py",
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "build": "npm run extract && tsc && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "test": "npm run extract && tsc --noEmit && node scripts/smoke-test.mjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "hyperformula": "^3.3.0",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.0"
+  }
+}
