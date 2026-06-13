@@ -3,6 +3,7 @@ export interface UploadResponse {
   id?: string;
   name?: string;
   webViewLink?: string;
+  folderId?: string;
   error?: string;
 }
 
@@ -20,9 +21,6 @@ export async function uploadToDrive(
 
     const response = await fetch('/api/drive/upload', {
       method: 'POST',
-      headers: import.meta.env.VITE_DRIVE_UPLOAD_TOKEN
-        ? { Authorization: `Bearer ${import.meta.env.VITE_DRIVE_UPLOAD_TOKEN}` }
-        : undefined,
       body: formData,
     });
 

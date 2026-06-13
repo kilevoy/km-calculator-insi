@@ -1,7 +1,7 @@
 {
   "name": "km-calculator-insi",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,9 +10,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:server": "python -m unittest tests/server_security_test.py",
     "audit:excel": "C:\\Users\\Deako\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe scripts/audit_excel.py source/KM_R2_0_1.xlsx",
     "fixtures:excel": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/generate_excel_scenarios.ps1 && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/excel_oracle.ps1 -InputPath tests/fixtures/excel-scenarios.json -OutputPath tests/fixtures/excel-results.json && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/generate_excel_feature_scenarios.ps1 && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/excel_oracle.ps1 -InputPath tests/fixtures/excel-feature-scenarios.json -OutputPath tests/fixtures/excel-feature-results.json",
-    "quality": "npm run lint && npm run typecheck && npm test && npm run build"
+    "quality": "npm run lint && npm run typecheck && npm test && npm run test:server && npm run build"
   },
   "dependencies": {
     "@types/canvas-confetti": "^1.9.0",

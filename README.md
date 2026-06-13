@@ -16,7 +16,7 @@ Production-oriented SPA для менеджеров ИНСИ. Калькулят
 - 45 изолированных сценариев дополнительных функций;
 - эталонная конфигурация книги;
 - допуск стоимости и срока: менее 3%;
-- всего 108 автоматических тестов.
+- всего 115 автоматических тестов: 111 frontend/расчётных и 4 security-теста прокси.
 
 ## Возможности
 
@@ -33,10 +33,11 @@ Production-oriented SPA для менеджеров ИНСИ. Калькулят
 
 ## Быстрый запуск
 
-Требования: Node.js 20+ и npm.
+Требования: Node.js 20+, npm и Python 3.11+.
 
 ```powershell
 npm ci
+python -m pip install -r requirements.txt
 npm run quality
 npm run dev
 ```
@@ -58,6 +59,7 @@ Vite использует относительный `base`, поэтому со
 npm run lint
 npm run typecheck
 npm test
+npm run test:server
 npm run build
 npm run quality
 ```
@@ -86,9 +88,12 @@ python server.py
 - `DRIVE_UPLOAD_TOKEN` — длинный случайный Bearer-токен;
 - `ALLOWED_ORIGINS` — точные origin интерфейса;
 - `GOOGLE_API_SCRIPT` — путь к авторизованному `google_api.py`;
-- `VITE_DRIVE_UPLOAD_TOKEN` — тот же токен на этапе сборки frontend.
+- `DRIVE_ROOT_FOLDER_ID` — ID заранее созданной корпоративной папки; если не указан, прокси найдёт или создаст `КМ-Калькулятор`;
+- `BUSINESS_TIMEZONE` — часовой пояс для подпапок `ГГГГ-ММ`;
+- reverse proxy должен аутентифицировать пользователя и добавлять Bearer-токен при передаче `/api` в FastAPI;
+- при локальной разработке Vite читает `DRIVE_UPLOAD_TOKEN` только в Node-конфигурации proxy и не включает его в browser bundle.
 
-Endpoint принимает только PDF, ограничивает размер, очищает имя файла, проверяет folder ID, использует временный файл и таймаут. Публиковать прокси без HTTPS и внешнего reverse proxy нельзя.
+Endpoint принимает только PDF, ограничивает размер, очищает имя файла, проверяет folder ID, использует временный файл и таймаут. При отсутствии явного `folder_id` файл сохраняется в `КМ-Калькулятор/ГГГГ-ММ`. Публиковать прокси без HTTPS и внешнего reverse proxy нельзя.
 
 ## Архитектура
 

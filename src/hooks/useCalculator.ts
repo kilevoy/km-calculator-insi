@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { DEFAULT_PARAMS } from '../data/defaults';
 import { calculate } from '../logic/calculator';
+import { hydrateCalculatorParams } from '../logic/params';
 import { getMaximumSpan } from '../logic/validation';
 import type { CalculatorParams, RoofType } from '../types/calculator';
 
@@ -27,45 +28,16 @@ function decodePayload(value: string): CalculatorParams | null {
     const padded = value.replaceAll('-', '+').replaceAll('_', '/') + '==='.slice((value.length + 3) % 4);
     const binary = atob(padded);
     const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-    const parsed = JSON.parse(new TextDecoder().decode(bytes)) as Partial<CalculatorParams>;
-    if (parsed.model_version !== 2 || !parsed.system || !parsed.roof_type) return null;
-    const defaults = cloneDefaults();
-    return {
-      ...defaults,
-      ...parsed,
-      project_sections: { ...defaults.project_sections, ...(parsed.project_sections ?? {}) },
-      floor: { ...defaults.floor, ...(parsed.floor ?? {}) },
-      mezzanines: defaults.mezzanines.map((item, index) => ({
-        ...item,
-        ...(Array.isArray(parsed.mezzanines) ? parsed.mezzanines[index] ?? {} : {}),
-      })) as CalculatorParams['mezzanines'],
-      support_crane: { ...defaults.support_crane, ...(parsed.support_crane ?? {}) },
-      suspension_crane: { ...defaults.suspension_crane, ...(parsed.suspension_crane ?? {}) },
-      stairs: { ...defaults.stairs, ...(parsed.stairs ?? {}) },
-      parapet: { ...defaults.parapet, ...(parsed.parapet ?? {}) },
-      walls: {
-        ...defaults.walls,
-        ...(parsed.walls ?? {}),
-        windows: { ...defaults.walls.windows, ...(parsed.walls?.windows ?? {}) },
-        gates: { ...defaults.walls.gates, ...(parsed.walls?.gates ?? {}) },
-        doors: { ...defaults.walls.doors, ...(parsed.walls?.doors ?? {}) },
-      },
-      partitions: defaults.partitions.map((item, index) => ({
-        ...item,
-        ...(Array.isArray(parsed.partitions) ? parsed.partitions[index] ?? {} : {}),
-      })) as CalculatorParams['partitions'],
-      partition_openings: { ...defaults.partition_openings, ...(parsed.partition_openings ?? {}) },
-      partition_gates: { ...defaults.partition_gates, ...(parsed.partition_gates ?? {}) },
-      span_widths_m: Array.isArray(parsed.span_widths_m) ? parsed.span_widths_m : defaults.span_widths_m,
-      frame_steps_m: Array.isArray(parsed.frame_steps_m) ? parsed.frame_steps_m : defaults.frame_steps_m,
-    };
+    const parsed = JSON.parse(new TextDecoder().decode(bytes)) as unknown;
+    if (typeof parsed !== 'object' || parsed === null || (parsed as { model_version?: unknown }).model_version !== 2) return null;
+    return hydrateCalculatorParams(parsed);
   } catch {
     return null;
   }
 }
 
 function normalize(params: CalculatorParams): CalculatorParams {
-  const next = structuredClone(params);
+  const next = hydrateCalculatorParams(params);
   if (!VALID_ROOFS[next.system].includes(next.roof_type)) next.roof_type = 'two_slope';
   const maximumSpan = getMaximumSpan(next.system, next.roof_type);
   next.span_widths_m = next.span_widths_m.slice(0, 5).map((span) => Math.min(Number(span) || 0, maximumSpan));

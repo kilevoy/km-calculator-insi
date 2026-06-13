@@ -56,6 +56,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
   const [copied, setCopied] = useState(false);
   const [isExportingPDF, setIsExportingPDF] = useState(false);
   const { isUploading, uploadStatus, uploadedFileUrl, error: uploadError, uploadFile, resetUpload } = useGoogleDrive();
+  const canIssueReport = result.status === 'valid';
 
   const getReportFilename = () => {
     const sysClean = params.system.replace(/\s+/g, '_');
@@ -70,7 +71,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
   };
 
   const handleDownloadPDF = async () => {
-    if (!reportRef.current) return;
+    if (!reportRef.current || !canIssueReport) return;
     setIsExportingPDF(true);
     try {
       const filename = getReportFilename();
@@ -94,7 +95,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
   };
 
   const handleUploadToDrive = async () => {
-    if (!reportRef.current) return;
+    if (!reportRef.current || !canIssueReport) return;
     resetUpload();
     try {
       const filename = getReportFilename();
@@ -163,6 +164,12 @@ export const ResultCard: React.FC<ResultCardProps> = ({
 
       {/* Action panel */}
       <div className="space-y-2 pt-4 border-t border-insi-slate-100 mt-auto">
+        {!canIssueReport && (
+          <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-[10px] text-red-700 flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <span>Исправьте ошибки параметров перед выпуском PDF или загрузкой в Google Drive.</span>
+          </div>
+        )}
         <div className="grid grid-cols-2 gap-2">
           {/* Copy link */}
           <button
@@ -181,7 +188,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
           {/* Download PDF */}
           <button
             type="button"
-            disabled={isExportingPDF}
+            disabled={isExportingPDF || !canIssueReport}
             onClick={handleDownloadPDF}
             className="w-full py-2.5 px-4 bg-insi-blue hover:bg-insi-blue-dark text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-sm disabled:bg-insi-blue/50"
           >
@@ -193,7 +200,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
         {/* Send to Google Drive */}
         <button
           type="button"
-          disabled={isUploading}
+          disabled={isUploading || !canIssueReport}
           onClick={handleUploadToDrive}
           className="w-full py-2.5 px-4 bg-insi-slate-900 hover:bg-insi-slate-800 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-sm disabled:bg-insi-slate-900/60"
         >

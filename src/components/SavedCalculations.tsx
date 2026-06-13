@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { CalculatorParams } from '../types/calculator';
 import { formatCurrency, formatDate } from '../utils/formatters';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { hydrateCalculatorParams } from '../logic/params';
 import { Save, Trash2, FolderOpen, Edit3, Check, X } from 'lucide-react';
 
 interface SavedCalculation {
@@ -18,12 +19,34 @@ interface SavedCalculationsProps {
   onLoad: (params: CalculatorParams) => void;
 }
 
+function hydrateSavedCalculations(value: unknown): SavedCalculation[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((item) => {
+    if (typeof item !== 'object' || item === null) return [];
+    const candidate = item as Partial<SavedCalculation>;
+    if (typeof candidate.id !== 'string' || typeof candidate.name !== 'string') return [];
+    return [{
+      id: candidate.id,
+      name: candidate.name.slice(0, 200),
+      timestamp: typeof candidate.timestamp === 'number' && Number.isFinite(candidate.timestamp)
+        ? candidate.timestamp
+        : Date.now(),
+      params: hydrateCalculatorParams(candidate.params),
+      cost: typeof candidate.cost === 'number' && Number.isFinite(candidate.cost) ? candidate.cost : 0,
+    }];
+  });
+}
+
 export const SavedCalculations: React.FC<SavedCalculationsProps> = ({
   currentParams,
   currentCost,
   onLoad,
 }) => {
-  const [savedCalcs, setSavedCalcs] = useLocalStorage<SavedCalculation[]>('insi_saved_calculations_v2', []);
+  const [savedCalcs, setSavedCalcs] = useLocalStorage<SavedCalculation[]>(
+    'insi_saved_calculations_v2',
+    [],
+    hydrateSavedCalculations,
+  );
   const [draftName, setDraftName] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
@@ -37,7 +60,7 @@ export const SavedCalculations: React.FC<SavedCalculationsProps> = ({
       id: Date.now().toString(),
       name,
       timestamp: Date.now(),
-      params: { ...currentParams },
+      params: structuredClone(currentParams),
       cost: currentCost,
     };
 
