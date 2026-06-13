@@ -1,0 +1,44 @@
+{
+  "name": "km-calculator-insi",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --pretty false",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "audit:excel": "C:\\Users\\Deako\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe scripts/audit_excel.py source/KM_R2_0_1.xlsx",
+    "fixtures:excel": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/generate_excel_scenarios.ps1 && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/excel_oracle.ps1 -InputPath tests/fixtures/excel-scenarios.json -OutputPath tests/fixtures/excel-results.json && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/generate_excel_feature_scenarios.ps1 && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/excel_oracle.ps1 -InputPath tests/fixtures/excel-feature-scenarios.json -OutputPath tests/fixtures/excel-feature-results.json",
+    "quality": "npm run lint && npm run typecheck && npm test && npm run build"
+  },
+  "dependencies": {
+    "@types/canvas-confetti": "^1.9.0",
+    "canvas-confetti": "^1.9.4",
+    "html2pdf.js": "^0.14.0",
+    "lucide-react": "^1.18.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^3.8.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.13.2",
+    "@types/react": "^18.3.28",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^6.0.1",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^3.4.19",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.12",
+    "vitest": "^4.1.8"
+  }
+}

@@ -1,0 +1,154 @@
+﻿:	GBox		
+:	Label		
+:	Label		
+:	CheckBox		$AM$18
+:	GBox		
+:	CheckBox		$AM$38
+:	Label		
+:	Label		
+:	CheckBox		$AM$15
+:	Label		
+:	Label		
+:	GBox		
+:	CheckBox		$AM$40
+:	Label		
+:	CheckBox		$AM$34
+:	CheckBox		$AM$24
+:	Label		
+:	CheckBox		$AM$23
+:	Label		
+:	CheckBox		$AM$26
+:	Label		
+:	CheckBox		$AM$25
+:	Label		
+:	GBox		
+:	CheckBox		$AM$33
+:	Radio		$AM$19
+:	GBox		
+:	GBox		
+:	Radio		
+:	Radio		
+:	Radio		
+:	Radio		
+:	Radio		$AM$11
+:	GBox		
+:	Radio		$AM$7
+:	GBox		
+:	Radio		
+:	Radio		
+:	Radio		
+:	Radio		
+:	GBox		
+:	Label		
+:	Radio		
+:	Radio		$AM$6
+:	Radio		
+:	Radio		
+:	Radio		
+5:1	GBox	Страна	
+6:1	Radio	Россия, Казахстан (СНиП), другое (СНиП)	$AM$5
+7:1	Radio	Казахстан (Еврокод)	
+12:3	GBox	Степень огнестойкости здания	
+12:4	Radio	ниже V	$AM$63
+12:6	Radio	V	
+14:3	GBox	Наличие в Великане	
+15:4	CheckBox	подстропильной фермы	$AM$10
+20:1	GBox	Проектирование	
+21:1	CheckBox	КМ	$AM$8
+22:1	CheckBox	АС	$AM$9
+25:1	GBox	Параметры здания	
+25:18	GBox	Ограждающие конструкции	
+26:18	GBox	Кровля	
+27:18	Radio	профлист	$AM$31
+27:26	Radio	ПВХ	
+28:18	Radio	сендвич-панели послойной сборки	
+29:18	Radio	сендвич-панели заводского изготовления	
+31:23	CheckBox	наличие водосточной системы	$AM$70
+33:1	GBox	Количество пролетов	
+34:1	Label	Пролет(ы) по порядку	
+35:18	GBox	Наличие парапета	
+36:18	Radio	нет	
+36:18	GBox	по длинным сторонам	
+36:23	GBox	по торцам	
+36:23	Radio	нет	
+37:1	Label	Длина	
+37:18	Radio	по одной стороне	$AM$59
+37:23	Radio	по одной стороне	$AM$60
+38:18	Radio	по двум сторонам	
+38:23	Radio	по двум сторонам	
+40:1	GBox	Шаг рам	
+40:1	Radio	одинаковый	$AM$13
+40:2	Radio	разный	
+40:19	CheckBox	с выносом	$AM$61
+42:1	Label	Высота до низа выступающих конструкций	
+42:18	GBox	Стены	
+42:18	Radio	профлист	$AM$36
+43:27	Radio	нет	
+44:1	GBox		
+44:1	CheckBox	Наличие в здании перекрытия(ий)	$AM$14
+44:11	Label	кол-во этажей	
+44:18	Radio	сендвич-панели послойной сборки	
+45:13	CheckBox	разная нагрузка	$AM$65
+45:18	GBox		
+45:19	Label	Толщина стен	
+45:21	Radio	100(110)	$AM$37
+45:23	Radio	150	
+45:24	Radio	200	
+45:25	Radio	250	
+46:1	Label	Пролет(ы)	
+46:18	Radio	Сендвич-панели заводского изготовления	
+46:25	Radio	гориз.	$AM$69
+46:25	GBox		
+46:27	Radio	вертик.	
+47:11	Label	кол-во этажей	
+48:18	GBox	Проемы	
+49:13	CheckBox	разная нагрузка	$AM$66
+51:1	CheckBox	Наличие в здании антресоли (2)	$AM$16
+51:1	GBox		
+51:11	Label	кол-во этажей	
+53:1	Label	Длина	
+53:3	Label	Ширина	
+53:13	CheckBox	разная нагрузка	$AM$67
+55:1	GBox		
+55:1	CheckBox	Наличие в здании антресоли (3)	$AM$17
+55:11	Label	кол-во этажей	
+57:1	Label	Длина	
+57:3	Label	Ширина	
+57:12	CheckBox	разная нагрузка	$AM$68
+59:18	GBox		
+60:19	CheckBox	наличие дверей	$AM$41
+61:19	Label	Кол-во	
+62:19	Label	Кол-во типов размеров	
+64:1	GBox		
+64:1	CheckBox	Наличие в здании подвесного крана	$AM$20
+66:1	Label	Кол-во пролетов с краном	
+66:5	Radio	одинаковая	$AM$21
+66:9	Radio	разная	
+67:1	Label	Грузоподъемность карнов	
+69:1	GBox	Лестница(ы)	
+70:8	CheckBox	одномаршевая	$AM$27
+70:8	GBox	С металлическими ступенями	
+71:12	Label	Кол-во	
+72:8	CheckBox	двухмаршевая	$AM$28
+73:12	Label	Кол-во	
+74:8	CheckBox	трехмаршевая	$AM$29
+75:12	Label	Кол-во	
+76:8	CheckBox	четырехмаршевая	$AM$30
+77:12	Label	Кол-во	
+79:1	GBox	Перегородки	
+79:8	GBox	Проемы в перегородках	
+80:1	CheckBox	ГВЛ	$AM$42
+80:1	GBox		
+80:8	CheckBox	наличие окон, дверей	$AM$45
+80:8	GBox		
+80:11	Label	Кол-во	
+81:1	Label	Площадь	
+83:1	GBox		
+83:1	CheckBox	сендвич-панели послойной сборки	$AM$43
+83:8	CheckBox	наличие ворот	$AM$46
+83:8	GBox		
+85:1	Label	Площадь	
+85:11	Label	Кол-во	
+86:1	CheckBox	сендвич-панели заводского изготовления	$AM$44
+86:1	GBox		
+88:1	Label	Площадь	

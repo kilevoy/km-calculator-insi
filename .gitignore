@@ -1,0 +1,37 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+__pycache__/
+*.pyc
+*.tsbuildinfo
+
+# Local research and generated diagnostics
+scratch/
+grid_search_results.json
+properly_mapped_cases.json
+height_*_inspect.txt
+sprint_inspect.txt
+test_results.txt
+test_run.log
+vite-review.*.log
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

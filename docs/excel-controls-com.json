@@ -1,0 +1,938 @@
+﻿[
+    {
+        "topLeft":  "A33",
+        "name":  "Group Box 33",
+        "text":  "Количество пролетов          ",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A40",
+        "name":  "Group Box 43",
+        "text":  "Шаг рам                 ",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A40",
+        "name":  "Option Button 44",
+        "text":  "одинаковый",
+        "linkedCell":  "$AM$13",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "B40",
+        "name":  "Option Button 45",
+        "text":  "разный",
+        "linkedCell":  "$AM$13",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "A34",
+        "name":  "Label 36",
+        "text":  "Пролет(ы)\nпо порядку",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "A5",
+        "name":  "Group Box 1",
+        "text":  "Страна",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A6",
+        "name":  "Option Button 2",
+        "text":  "Россия, Казахстан (СНиП), другое (СНиП)",
+        "linkedCell":  "$AM$5",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "A7",
+        "name":  "Option Button 3",
+        "text":  "Казахстан (Еврокод)",
+        "linkedCell":  "$AM$5",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "A9",
+        "name":  "Group 5",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  6,
+        "formControlType":  null
+    },
+    {
+        "topLeft":  "A12",
+        "name":  "Group 4",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  6,
+        "formControlType":  null
+    },
+    {
+        "topLeft":  "A25",
+        "name":  "Group Box 24",
+        "text":  "Параметры здания",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A26",
+        "name":  "Group 13",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  6,
+        "formControlType":  null
+    },
+    {
+        "topLeft":  "A33",
+        "name":  "Group 12",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  6,
+        "formControlType":  null
+    },
+    {
+        "topLeft":  "A20",
+        "name":  "Group Box 20",
+        "text":  "Проектирование",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A21",
+        "name":  "Check Box 38",
+        "text":  "КМ",
+        "linkedCell":  "$AM$8",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "A22",
+        "name":  "Check Box 39",
+        "text":  "АС",
+        "linkedCell":  "$AM$9",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "A37",
+        "name":  "Label 41",
+        "text":  "Длина",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "A42",
+        "name":  "Label 47",
+        "text":  "Высота до низа выступающих конструкций",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "A44",
+        "name":  "Check Box 48",
+        "text":  "Наличие в здании перекрытия(ий)",
+        "linkedCell":  "$AM$14",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "A46",
+        "name":  "Label 49",
+        "text":  "Пролет(ы)",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "A44",
+        "name":  "Group Box 62",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A47",
+        "name":  "Group 20",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  6,
+        "formControlType":  null
+    },
+    {
+        "topLeft":  "A51",
+        "name":  "Check Box 54",
+        "text":  "Наличие в здании антресоли (2)",
+        "linkedCell":  "$AM$16",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "A53",
+        "name":  "Label 55",
+        "text":  "Длина",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "C53",
+        "name":  "Label 56",
+        "text":  "Ширина",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "A51",
+        "name":  "Group Box 64",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A55",
+        "name":  "Check Box 57",
+        "text":  "Наличие в здании антресоли (3)",
+        "linkedCell":  "$AM$17",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "A57",
+        "name":  "Label 58",
+        "text":  "Длина",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "C57",
+        "name":  "Label 59",
+        "text":  "Ширина",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "A55",
+        "name":  "Group Box 65",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A59",
+        "name":  "Group 16",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  6,
+        "formControlType":  null
+    },
+    {
+        "topLeft":  "A64",
+        "name":  "Check Box 74",
+        "text":  "Наличие в здании подвесного крана",
+        "linkedCell":  "$AM$20",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "A64",
+        "name":  "Group Box 75",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A66",
+        "name":  "Label 76",
+        "text":  "Кол-во пролетов с краном",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "A67",
+        "name":  "Label 77",
+        "text":  "Грузоподъемность карнов",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "E66",
+        "name":  "Option Button 78",
+        "text":  "одинаковая",
+        "linkedCell":  "$AM$21",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "I66",
+        "name":  "Option Button 79",
+        "text":  "разная",
+        "linkedCell":  "$AM$21",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "A69",
+        "name":  "Group Box 80",
+        "text":  "Лестница(ы)",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A70",
+        "name":  "Group 15",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  6,
+        "formControlType":  null
+    },
+    {
+        "topLeft":  "H70",
+        "name":  "Group Box 94",
+        "text":  "С металлическими ступенями",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "H70",
+        "name":  "Check Box 95",
+        "text":  "одномаршевая",
+        "linkedCell":  "$AM$27",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "L71",
+        "name":  "Label 96",
+        "text":  "Кол-во",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "H72",
+        "name":  "Check Box 97",
+        "text":  "двухмаршевая",
+        "linkedCell":  "$AM$28",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "L73",
+        "name":  "Label 98",
+        "text":  "Кол-во",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "H74",
+        "name":  "Check Box 99",
+        "text":  "трехмаршевая",
+        "linkedCell":  "$AM$29",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "L75",
+        "name":  "Label 100",
+        "text":  "Кол-во",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "H76",
+        "name":  "Check Box 101",
+        "text":  "четырехмаршевая",
+        "linkedCell":  "$AM$30",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "L77",
+        "name":  "Label 102",
+        "text":  "Кол-во",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "R25",
+        "name":  "Group Box 103",
+        "text":  "Ограждающие конструкции",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "R26",
+        "name":  "Group Box 104",
+        "text":  "Кровля",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "R27",
+        "name":  "Option Button 105",
+        "text":  "профлист",
+        "linkedCell":  "$AM$31",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "R28",
+        "name":  "Option Button 106",
+        "text":  "сендвич-панели послойной сборки",
+        "linkedCell":  "$AM$31",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "R29",
+        "name":  "Option Button 107",
+        "text":  "сендвич-панели заводского изготовления",
+        "linkedCell":  "$AM$31",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "R31",
+        "name":  "Group 11",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  6,
+        "formControlType":  null
+    },
+    {
+        "topLeft":  "R35",
+        "name":  "Group Box 111",
+        "text":  "Наличие парапета",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "R42",
+        "name":  "Group Box 116",
+        "text":  "Стены",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "R42",
+        "name":  "Option Button 117",
+        "text":  "профлист",
+        "linkedCell":  "$AM$36",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "R44",
+        "name":  "Option Button 118",
+        "text":  "сендвич-панели послойной сборки",
+        "linkedCell":  "$AM$36",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "S45",
+        "name":  "Label 120",
+        "text":  "Толщина стен",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "U45",
+        "name":  "Option Button 121",
+        "text":  "100(110)",
+        "linkedCell":  "$AM$37",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "W45",
+        "name":  "Option Button 122",
+        "text":  "150",
+        "linkedCell":  "$AM$37",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "X45",
+        "name":  "Option Button 123",
+        "text":  "200",
+        "linkedCell":  "$AM$37",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "Y45",
+        "name":  "Option Button 124",
+        "text":  "250",
+        "linkedCell":  "$AM$37",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "R45",
+        "name":  "Group Box 125",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "R48",
+        "name":  "Group Box 126",
+        "text":  "Проемы",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "R49",
+        "name":  "Group 9",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  6,
+        "formControlType":  null
+    },
+    {
+        "topLeft":  "R54",
+        "name":  "Group 24",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  6,
+        "formControlType":  null
+    },
+    {
+        "topLeft":  "R59",
+        "name":  "Group Box 136",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "S60",
+        "name":  "Check Box 137",
+        "text":  "наличие дверей",
+        "linkedCell":  "$AM$41",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "S61",
+        "name":  "Label 138",
+        "text":  "Кол-во",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "S62",
+        "name":  "Label 139",
+        "text":  "Кол-во типов размеров",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "A79",
+        "name":  "Group Box 140",
+        "text":  "Перегородки",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A80",
+        "name":  "Check Box 141",
+        "text":  "ГВЛ",
+        "linkedCell":  "$AM$42",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "A81",
+        "name":  "Label 142",
+        "text":  "Площадь",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "A83",
+        "name":  "Check Box 143",
+        "text":  "сендвич-панели послойной сборки",
+        "linkedCell":  "$AM$43",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "A85",
+        "name":  "Label 144",
+        "text":  "Площадь",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "A86",
+        "name":  "Check Box 145",
+        "text":  "сендвич-панели заводского изготовления",
+        "linkedCell":  "$AM$44",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "A88",
+        "name":  "Label 146",
+        "text":  "Площадь",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "A80",
+        "name":  "Group Box 147",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A83",
+        "name":  "Group Box 148",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "A86",
+        "name":  "Group Box 149",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "H79",
+        "name":  "Group Box 150",
+        "text":  "Проемы в перегородках",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "H80",
+        "name":  "Check Box 151",
+        "text":  "наличие окон, дверей",
+        "linkedCell":  "$AM$45",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "H80",
+        "name":  "Group Box 152",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "K80",
+        "name":  "Label 153",
+        "text":  "Кол-во",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "H83",
+        "name":  "Check Box 155",
+        "text":  "наличие ворот",
+        "linkedCell":  "$AM$46",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "H83",
+        "name":  "Group Box 156",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "K85",
+        "name":  "Label 157",
+        "text":  "Кол-во",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "R37",
+        "name":  "Option Button 174",
+        "text":  "по одной стороне",
+        "linkedCell":  "$AM$59",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "R38",
+        "name":  "Option Button 175",
+        "text":  "по двум сторонам",
+        "linkedCell":  "$AM$59",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "R36",
+        "name":  "Option Button 177",
+        "text":  "нет",
+        "linkedCell":  "$AM$59",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "R36",
+        "name":  "Group Box 178",
+        "text":  "по длинным сторонам",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "S40",
+        "name":  "Check Box 179",
+        "text":  "с выносом",
+        "linkedCell":  "$AM$61",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "W36",
+        "name":  "Group Box 180",
+        "text":  "по торцам",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "W37",
+        "name":  "Option Button 181",
+        "text":  "по одной стороне",
+        "linkedCell":  "$AM$60",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "W38",
+        "name":  "Option Button 182",
+        "text":  "по двум сторонам",
+        "linkedCell":  "$AM$60",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "W36",
+        "name":  "Option Button 183",
+        "text":  "нет",
+        "linkedCell":  "$AM$60",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "C12",
+        "name":  "Group Box 193",
+        "text":  "Степень огнестойкости здания",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "D12",
+        "name":  "Option Button 194",
+        "text":  "ниже V",
+        "linkedCell":  "$AM$63",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "F12",
+        "name":  "Option Button 197",
+        "text":  " V",
+        "linkedCell":  "$AM$63",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "R46",
+        "name":  "Option Button 199",
+        "text":  "Сендвич-панели заводского изготовления",
+        "linkedCell":  "$AM$36",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "K44",
+        "name":  "Label 202",
+        "text":  "кол-во\nэтажей",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "M45",
+        "name":  "Check Box 203",
+        "text":  "разная нагрузка",
+        "linkedCell":  "$AM$65",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "M49",
+        "name":  "Check Box 205",
+        "text":  "разная нагрузка",
+        "linkedCell":  "$AM$66",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "M53",
+        "name":  "Check Box 207",
+        "text":  "разная нагрузка",
+        "linkedCell":  "$AM$67",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "L57",
+        "name":  "Check Box 209",
+        "text":  "разная нагрузка",
+        "linkedCell":  "$AM$68",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "K47",
+        "name":  "Label 210",
+        "text":  "кол-во\nэтажей",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "K51",
+        "name":  "Label 211",
+        "text":  "кол-во\nэтажей",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "K55",
+        "name":  "Label 212",
+        "text":  "кол-во\nэтажей",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  5
+    },
+    {
+        "topLeft":  "Y46",
+        "name":  "Group Box 213",
+        "text":  "",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "Y46",
+        "name":  "Option Button 218",
+        "text":  "гориз.",
+        "linkedCell":  "$AM$69",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "AA46",
+        "name":  "Option Button 220",
+        "text":  "вертик.",
+        "linkedCell":  "$AM$69",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "AA43",
+        "name":  "Option Button 222",
+        "text":  "нет",
+        "linkedCell":  "$AM$36",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "C14",
+        "name":  "Group Box 223",
+        "text":  "Наличие в Великане",
+        "linkedCell":  null,
+        "type":  8,
+        "formControlType":  4
+    },
+    {
+        "topLeft":  "D15",
+        "name":  "Check Box 224",
+        "text":  "подстропильной фермы",
+        "linkedCell":  "$AM$10",
+        "type":  8,
+        "formControlType":  1
+    },
+    {
+        "topLeft":  "Z27",
+        "name":  "Option Button 225",
+        "text":  "ПВХ",
+        "linkedCell":  "$AM$31",
+        "type":  8,
+        "formControlType":  7
+    },
+    {
+        "topLeft":  "W31",
+        "name":  "Check Box 226",
+        "text":  "наличие водосточной системы",
+        "linkedCell":  "$AM$70",
+        "type":  8,
+        "formControlType":  1
+    }
+]

@@ -1,0 +1,9 @@
+{
+  "scenarios": [
+    {
+      "id": 1,
+      "description": "Unmodified workbook defaults",
+      "cells": {}
+    }
+  ]
+}
