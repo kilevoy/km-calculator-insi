@@ -1,6 +1,11 @@
 import type { MutableRefObject } from 'react';
 import type { CalculatorParams, CalculatorResult } from '../types/calculator';
 import { formatCurrency, formatDate, formatDays, formatRubles, formatWeight } from '../utils/formatters';
+import {
+  PARTITION_KIND_LABELS,
+  ROOF_CLADDING_LABELS,
+  WALL_CLADDING_LABELS,
+} from '../utils/calculator-labels';
 
 interface PDFReportProps {
   params: CalculatorParams;
@@ -33,10 +38,10 @@ export function PDFReport({ params, result, reportRef }: PDFReportProps) {
     ['Перекрытия', params.floor.enabled ? `${params.floor.spans_m.join(', ')} м; этажей: ${params.floor.storeys}; нагрузка ${params.floor.load_mode === 'same' ? 'одинаковая' : 'разная'}` : 'Нет'],
     ['Антресоли', enabledMezzanines.length ? enabledMezzanines.map((item, index) => `№${index + 1}: ${item.length_m}×${item.width_m} м, ${item.storeys} эт.`).join('; ') : 'Нет'],
     ['Опорный / подвесной кран', `${yesNo(params.support_crane.enabled)} / ${yesNo(params.suspension_crane.enabled)}`],
-    ['Кровля', `${params.roof_cladding}; снегозадержание: ${yesNo(params.has_snow_retention)}; ограждение: ${yesNo(params.has_roof_railing)}; водосток: ${yesNo(params.has_drainage)}`],
-    ['Стены', `${params.walls.cladding}, ${params.walls.thickness_mm} мм, ${params.walls.orientation === 'horizontal' ? 'горизонтально' : 'вертикально'}`],
+    ['Кровля', `${ROOF_CLADDING_LABELS[params.roof_cladding]}; снегозадержание: ${yesNo(params.has_snow_retention)}; ограждение: ${yesNo(params.has_roof_railing)}; водосток: ${yesNo(params.has_drainage)}`],
+    ['Стены', `${WALL_CLADDING_LABELS[params.walls.cladding]}, ${params.walls.thickness_mm} мм, ${params.walls.orientation === 'horizontal' ? 'горизонтально' : 'вертикально'}`],
     ['Проёмы', `окна ${params.walls.windows.count}, ворота ${params.walls.gates.count}, двери ${params.walls.doors.count}`],
-    ['Перегородки', params.partitions.filter(({ enabled }) => enabled).map(({ kind, area_m2 }) => `${kind}: ${area_m2} м²`).join('; ') || 'Нет'],
+    ['Перегородки', params.partitions.filter(({ enabled }) => enabled).map(({ kind, area_m2 }) => `${PARTITION_KIND_LABELS[kind]}: ${area_m2} м²`).join('; ') || 'Нет'],
     ['Парапеты', `продольные стороны: ${params.parapet.long_sides}; торцы: ${params.parapet.end_sides}; вынос: ${yesNo(params.parapet.has_overhang)}`],
     ['Лестницы', stairCount ? `${stairCount} шт.` : 'Нет'],
   ];

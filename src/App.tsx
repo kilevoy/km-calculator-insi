@@ -7,6 +7,7 @@ import { ResultCard } from './components/ResultCard';
 import { SavedCalculations } from './components/SavedCalculations';
 import { PDFReport } from './components/PDFReport';
 import { Calculator, Settings, History, FileText } from 'lucide-react';
+import { formatCurrency, formatDays } from './utils/formatters';
 
 function App() {
   const {
@@ -19,9 +20,16 @@ function App() {
   } = useCalculator();
 
   const reportRef = useRef<HTMLDivElement | null>(null);
+  const mobileWorkspaceRef = useRef<HTMLDivElement | null>(null);
 
   // Tab state for mobile layout
   const [activeTab, setActiveTab] = useState<'params' | 'result' | 'drafts'>('params');
+  const selectMobileTab = (tab: 'params' | 'result' | 'drafts') => {
+    setActiveTab(tab);
+    window.setTimeout(() => {
+      mobileWorkspaceRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 0);
+  };
 
   return (
     <div className="min-h-screen bg-insi-slate-50 flex flex-col">
@@ -50,14 +58,17 @@ function App() {
       </header>
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-4 pb-24 sm:p-6 lg:p-8 flex flex-col gap-6">
         
         {/* Intro Info Banner */}
         <section className="bg-gradient-to-r from-insi-blue/5 to-transparent border border-insi-blue/10 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <h2 className="text-sm font-bold text-insi-slate-900">Быстрый старт расчета сметы</h2>
-            <p className="text-xs text-insi-slate-500 leading-normal max-w-2xl">
+            <p className="hidden text-xs text-insi-slate-500 leading-normal max-w-2xl sm:block">
               Выберите конструктивную систему каркаса здания ниже, заполните геометрические параметры и надстройки в форме. Результат, срок и структура стоимости рассчитаются автоматически.
+            </p>
+            <p className="text-xs text-insi-slate-500 sm:hidden">
+              Система → параметры → готовое коммерческое предложение.
             </p>
           </div>
           <div className="text-[10px] text-insi-slate-400 font-medium border border-insi-slate-200 bg-white px-3 py-1.5 rounded-xl self-start sm:self-auto shadow-sm">
@@ -65,8 +76,44 @@ function App() {
           </div>
         </section>
 
+        {/* Responsive Mobile Tabs (displayed on screens under lg) */}
+        <div ref={mobileWorkspaceRef} className="scroll-mt-[73px] lg:hidden" />
+        <div
+          className="sticky top-[73px] z-20 -mx-4 border-y border-insi-slate-200 bg-insi-slate-50/95 px-4 py-2 backdrop-blur lg:hidden"
+        >
+          <div className="grid grid-cols-3 gap-1 rounded-xl bg-insi-slate-200/70 p-1">
+            <button
+              onClick={() => selectMobileTab('params')}
+              className={`flex min-h-10 items-center justify-center gap-1 rounded-lg px-1 text-xs font-bold transition-colors ${
+                activeTab === 'params' ? 'bg-white text-insi-blue shadow-sm' : 'text-insi-slate-500'
+              }`}
+            >
+              <Settings className="h-4 w-4" />
+              Параметры
+            </button>
+            <button
+              onClick={() => selectMobileTab('result')}
+              className={`flex min-h-10 items-center justify-center gap-1 rounded-lg px-1 text-xs font-bold transition-colors ${
+                activeTab === 'result' ? 'bg-white text-insi-blue shadow-sm' : 'text-insi-slate-500'
+              }`}
+            >
+              <FileText className="h-4 w-4" />
+              Результат
+            </button>
+            <button
+              onClick={() => selectMobileTab('drafts')}
+              className={`flex min-h-10 items-center justify-center gap-1 rounded-lg px-1 text-xs font-bold transition-colors ${
+                activeTab === 'drafts' ? 'bg-white text-insi-blue shadow-sm' : 'text-insi-slate-500'
+              }`}
+            >
+              <History className="h-4 w-4" />
+              Черновики
+            </button>
+          </div>
+        </div>
+
         {/* Step 1: System Selection */}
-        <section className="space-y-3">
+        <section className={`space-y-3 ${activeTab === 'params' ? '' : 'hidden lg:block'}`}>
           <h2 className="text-xs font-bold text-insi-slate-800 uppercase tracking-widest flex items-center gap-1.5">
             <span className="w-1.5 h-3 bg-insi-blue rounded-full" />
             Шаг 1 — Конструктивная система
@@ -75,50 +122,13 @@ function App() {
         </section>
 
         {/* Step 2: Roof Selection */}
-        <section className="space-y-3">
+        <section className={`space-y-3 ${activeTab === 'params' ? '' : 'hidden lg:block'}`}>
           <h2 className="text-xs font-bold text-insi-slate-800 uppercase tracking-widest flex items-center gap-1.5">
             <span className="w-1.5 h-3 bg-insi-blue rounded-full" />
             Шаг 2 — Тип кровли здания
           </h2>
           <RoofSelector selected={params.roof_type} system={params.system} onChange={(roof) => updateParam('roof_type', roof)} />
         </section>
-
-        {/* Responsive Mobile Tabs (displayed on screens under lg) */}
-        <div className="lg:hidden border-b border-insi-slate-200 flex gap-2 pt-2">
-          <button
-            onClick={() => setActiveTab('params')}
-            className={`flex-1 py-2 text-xs font-bold border-b-2 flex items-center justify-center gap-1.5 transition-colors ${
-              activeTab === 'params' 
-                ? 'border-insi-blue text-insi-blue bg-insi-blue/5 rounded-t-lg' 
-                : 'border-transparent text-insi-slate-500'
-            }`}
-          >
-            <Settings className="w-4 h-4" />
-            Параметры
-          </button>
-          <button
-            onClick={() => setActiveTab('result')}
-            className={`flex-1 py-2 text-xs font-bold border-b-2 flex items-center justify-center gap-1.5 transition-colors ${
-              activeTab === 'result' 
-                ? 'border-insi-blue text-insi-blue bg-insi-blue/5 rounded-t-lg' 
-                : 'border-transparent text-insi-slate-500'
-            }`}
-          >
-            <FileText className="w-4 h-4" />
-            Результаты ({Math.round(result.cost)} тыс.)
-          </button>
-          <button
-            onClick={() => setActiveTab('drafts')}
-            className={`flex-1 py-2 text-xs font-bold border-b-2 flex items-center justify-center gap-1.5 transition-colors ${
-              activeTab === 'drafts' 
-                ? 'border-insi-blue text-insi-blue bg-insi-blue/5 rounded-t-lg' 
-                : 'border-transparent text-insi-slate-500'
-            }`}
-          >
-            <History className="w-4 h-4" />
-            Черновики
-          </button>
-        </div>
 
         {/* Two-Column Form & Sticky Result Block */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -165,7 +175,7 @@ function App() {
               currentCost={result.cost}
               onLoad={(loaded) => {
                 setParams(loaded);
-                setActiveTab('params');
+                selectMobileTab('params');
               }}
             />
           </div>
@@ -176,7 +186,7 @@ function App() {
       <PDFReport params={params} result={result} reportRef={reportRef} />
 
       {/* Footer */}
-      <footer className="bg-white border-t border-insi-slate-200/80 py-6 px-6 mt-12 text-center text-xs text-insi-slate-400">
+      <footer className="bg-white border-t border-insi-slate-200/80 px-6 pb-24 pt-6 mt-12 text-center text-xs text-insi-slate-400 lg:pb-6">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <span>© {new Date().getFullYear()} ИНСИ. Все права защищены. Калькулятор стоимости проектных работ марки КМ.</span>
           <div className="flex gap-4">
@@ -186,6 +196,28 @@ function App() {
           </div>
         </div>
       </footer>
+
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-insi-slate-200 bg-white/95 px-4 py-3 shadow-[0_-8px_24px_rgba(15,23,42,0.12)] backdrop-blur lg:hidden">
+        <div className="mx-auto flex max-w-lg items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-[10px] font-bold uppercase tracking-wide text-insi-slate-400">
+              {result.status === 'valid' ? 'Стоимость и срок' : 'Нужна проверка'}
+            </p>
+            <p className="truncate text-base font-extrabold text-insi-slate-900">
+              {result.status === 'valid'
+                ? `${formatCurrency(result.cost)} · ${formatDays(result.term)}`
+                : `${result.issues.filter(({ severity }) => severity === 'error').length} ошибок`}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => selectMobileTab(activeTab === 'result' ? 'params' : 'result')}
+            className="shrink-0 rounded-xl bg-insi-blue px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-insi-blue-dark"
+          >
+            {activeTab === 'result' ? 'К параметрам' : 'Результат'}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

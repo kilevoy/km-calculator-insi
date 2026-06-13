@@ -136,8 +136,8 @@ const updateAt = <T,>(values: T[], index: number, value: T): T[] =>
 export function CalculatorForm({ params, onChange, validationAlerts }: CalculatorFormProps) {
   const [open, setOpen] = useState<Record<string, boolean>>({
     geometry: true,
-    structures: true,
-    envelope: true,
+    structures: false,
+    envelope: false,
     openings: false,
     extras: false,
   });

@@ -73,16 +73,16 @@ input:-webkit-autofill:focus {
   .form-section { @apply overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm; }
   .section-trigger { @apply flex w-full items-center gap-3 px-5 py-4 text-slate-900 transition hover:bg-slate-50; }
   .section-trigger strong { @apply block text-sm font-extrabold; }
-  .section-trigger small { @apply mt-0.5 block text-[11px] font-medium text-slate-500; }
+  .section-trigger small { @apply mt-0.5 block text-xs font-medium text-slate-500; }
   .section-icon { @apply grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-blue-50 text-blue-700; }
-  .section-body { @apply space-y-5 border-t border-slate-100 p-5; }
+  .section-body { @apply space-y-5 border-t border-slate-100 p-4 sm:p-5; }
   .field-grid { @apply grid gap-4; }
   .field-grid.two { @apply sm:grid-cols-2; }
   .field-grid.three { @apply sm:grid-cols-2 xl:grid-cols-3; }
   .field-grid.four { @apply sm:grid-cols-2 xl:grid-cols-4; }
   .field-grid.compact { @apply mt-4 gap-3; }
-  .field { @apply flex min-w-0 flex-col gap-1.5 text-[11px] font-bold text-slate-600; }
-  .field input, .field select { @apply h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-900 outline-none transition hover:border-slate-300 focus:border-blue-600 focus:ring-4 focus:ring-blue-100; }
+  .field { @apply flex min-w-0 flex-col gap-1.5 text-xs font-bold text-slate-600; }
+  .field input, .field select { @apply h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-900 outline-none transition hover:border-slate-300 focus:border-blue-600 focus:ring-4 focus:ring-blue-100; }
   .number-control { @apply relative block; }
   .number-control input { @apply pr-12; }
   .number-control em { @apply pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[10px] not-italic text-slate-400; }
@@ -95,8 +95,8 @@ input:-webkit-autofill:focus {
   .toggle-card.is-disabled { @apply cursor-not-allowed opacity-45; }
   .toggle-card input { @apply sr-only; }
   .toggle-card > span:last-child { @apply min-w-0; }
-  .toggle-card strong { @apply block text-xs font-bold text-slate-800; }
-  .toggle-card small { @apply mt-0.5 block text-[10px] leading-4 text-slate-500; }
+  .toggle-card strong { @apply block text-sm font-bold text-slate-800; }
+  .toggle-card small { @apply mt-0.5 block text-xs leading-4 text-slate-500; }
   .toggle-visual { @apply relative h-6 w-10 shrink-0 rounded-full bg-slate-200 transition; }
   .toggle-visual i { @apply absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow-sm transition; }
   .toggle-card.is-active .toggle-visual { @apply bg-blue-600; }
@@ -116,7 +116,7 @@ input:-webkit-autofill:focus {
   .stairs-table input { @apply h-9 min-w-0 rounded-lg border border-slate-200 px-2 text-center text-xs font-bold; }
   .validation-panel { @apply flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-900; }
   .validation-panel strong { @apply text-xs uppercase tracking-wide; }
-  .validation-panel p { @apply mt-1 text-[11px] leading-4; }
+  .validation-panel p { @apply mt-1 text-xs leading-4; }
   .validation-panel p.error { @apply text-red-700; }
 }
 

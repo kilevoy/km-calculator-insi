@@ -80,7 +80,7 @@ export const RoofSelector: React.FC<RoofSelectorProps> = ({ selected, system, on
               type="button"
               disabled={isRestricted}
               onClick={() => !isRestricted && onChange(roof.id)}
-              className={`w-full text-left p-4 rounded-xl border transition-all duration-200 flex flex-col items-center sm:items-start text-center sm:text-left ${
+              className={`flex min-h-20 w-full flex-col items-center rounded-xl border p-3 text-center transition-all duration-200 sm:min-h-0 sm:items-start sm:p-4 sm:text-left ${
                 isRestricted
                   ? 'bg-insi-slate-100/50 border-insi-slate-200 text-insi-slate-400 cursor-not-allowed opacity-50'
                   : isSelected
@@ -89,7 +89,7 @@ export const RoofSelector: React.FC<RoofSelectorProps> = ({ selected, system, on
               }`}
             >
               {/* Roof Icon Outline */}
-              <div className={`mb-3 transition-transform duration-300 ${isRestricted ? '' : 'group-hover:translate-y-[-2px]'}`}>
+              <div className={`mb-2 transition-transform duration-300 sm:mb-3 ${isRestricted ? '' : 'group-hover:translate-y-[-2px]'}`}>
                 {roof.iconSvg}
               </div>
               

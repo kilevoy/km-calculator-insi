@@ -79,7 +79,7 @@ export const SystemSelector: React.FC<SystemSelectorProps> = ({ selected, onChan
             key={sys.name}
             type="button"
             onClick={() => onChange(sys.name)}
-            className={`group relative flex min-h-32 flex-col justify-between overflow-hidden rounded-2xl border bg-white p-3 text-left shadow-sm transition-all duration-300 sm:min-h-0 sm:p-5 ${
+            className={`group relative flex min-h-24 flex-col justify-between overflow-hidden rounded-2xl border bg-white p-2.5 text-left shadow-sm transition-all duration-300 sm:min-h-0 sm:p-5 ${
               isSelected 
                 ? 'border-insi-blue ring-2 ring-insi-blue/20 bg-gradient-to-br from-white to-insi-blue/5 scale-[1.02]' 
                 : 'border-insi-slate-200/80 hover:border-insi-slate-300 hover:shadow-md hover:scale-[1.01]'
@@ -90,7 +90,7 @@ export const SystemSelector: React.FC<SystemSelectorProps> = ({ selected, onChan
             
             <div>
               {/* Badge & Icon Header */}
-              <div className="mb-3 flex items-center justify-between sm:mb-4">
+              <div className="mb-2 flex items-center justify-between sm:mb-4">
                 <div className={`rounded-xl bg-gradient-to-br p-2 sm:p-2.5 ${sys.color} group-hover:scale-110 transition-transform duration-300`}>
                   <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
