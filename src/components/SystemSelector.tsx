@@ -1,6 +1,6 @@
 import React from 'react';
 import type { SystemType } from '../types/calculator';
-import { Shield, HardHat, Building2, Factory, Construction, Compass } from 'lucide-react';
+import { Shield, HardHat, Building2, Factory, Construction, Compass, Check, HelpCircle } from 'lucide-react';
 
 interface SystemSelectorProps {
   selected: SystemType;
@@ -69,61 +69,103 @@ const SYSTEMS: SystemItem[] = [
 
 export const SystemSelector: React.FC<SystemSelectorProps> = ({ selected, onChange }) => {
   return (
-    <div className="grid grid-cols-2 gap-2 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {SYSTEMS.map((sys) => {
+    <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 xl:grid-cols-6">
+      {SYSTEMS.map((sys, index) => {
         const Icon = sys.icon;
         const isSelected = selected === sys.name;
-        
+        const mobileTooltipAlignment =
+          index % 2 === 0 ? 'left-0 right-auto translate-x-0' : 'left-auto right-0 translate-x-0';
+        const tabletTooltipAlignment =
+          index % 3 === 0
+            ? 'sm:left-0 sm:right-auto sm:translate-x-0'
+            : index % 3 === 1
+              ? 'sm:left-1/2 sm:right-auto sm:-translate-x-1/2'
+              : 'sm:left-auto sm:right-0 sm:translate-x-0';
+        const desktopTooltipAlignment =
+          index === 0
+            ? 'xl:left-0 xl:right-auto xl:translate-x-0'
+            : index === SYSTEMS.length - 1
+              ? 'xl:left-auto xl:right-0 xl:translate-x-0'
+              : 'xl:left-1/2 xl:right-auto xl:-translate-x-1/2';
+        const tooltipAlignment = `${mobileTooltipAlignment} ${tabletTooltipAlignment} ${desktopTooltipAlignment}`;
+
         return (
-          <button
-            key={sys.name}
-            type="button"
-            onClick={() => onChange(sys.name)}
-            className={`group relative flex min-h-24 flex-col justify-between overflow-hidden rounded-2xl border bg-white p-2.5 text-left shadow-sm transition-all duration-300 sm:min-h-0 sm:p-5 ${
-              isSelected 
-                ? 'border-insi-blue ring-2 ring-insi-blue/20 bg-gradient-to-br from-white to-insi-blue/5 scale-[1.02]' 
-                : 'border-insi-slate-200/80 hover:border-insi-slate-300 hover:shadow-md hover:scale-[1.01]'
-            }`}
-          >
-            {/* Background Decorative Gradient */}
-            <div className={`absolute -right-12 -bottom-12 w-28 h-28 rounded-full bg-gradient-to-br ${sys.color} blur-2xl group-hover:scale-125 transition-transform duration-500 opacity-60`} />
-            
-            <div>
-              {/* Badge & Icon Header */}
-              <div className="mb-2 flex items-center justify-between sm:mb-4">
-                <div className={`rounded-xl bg-gradient-to-br p-2 sm:p-2.5 ${sys.color} group-hover:scale-110 transition-transform duration-300`}>
-                  <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
-                </div>
-                <span className={`hidden rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider sm:inline ${
-                  isSelected 
-                    ? 'bg-insi-blue text-white' 
-                    : 'bg-insi-slate-100 text-insi-slate-600 group-hover:bg-insi-slate-200'
-                }`}>
-                  {sys.badge}
+          <div key={sys.name} className="group relative">
+            <button
+              type="button"
+              onClick={() => onChange(sys.name)}
+              aria-pressed={isSelected}
+              aria-describedby={`system-help-${index}`}
+              className={`relative flex min-h-[82px] w-full overflow-hidden rounded-xl border bg-white px-3 py-3 text-left shadow-sm transition-all duration-200 ${
+                isSelected
+                  ? 'scale-[1.01] border-insi-blue bg-gradient-to-br from-white to-insi-blue/5 ring-2 ring-insi-blue/20'
+                  : 'border-insi-slate-200/80 hover:-translate-y-0.5 hover:border-insi-slate-300 hover:shadow-md'
+              }`}
+            >
+              <span
+                className={`absolute inset-y-0 left-0 w-1 bg-gradient-to-b ${sys.color} transition-opacity ${
+                  isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-70'
+                }`}
+              />
+              <span
+                className={`absolute -bottom-6 right-0 h-20 w-20 rounded-full bg-gradient-to-br ${sys.color} opacity-60 blur-2xl transition-transform duration-500 group-hover:scale-125`}
+              />
+
+              <span className="relative flex w-full items-start gap-2.5">
+                <span
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${sys.color} transition-transform duration-200 group-hover:scale-105`}
+                >
+                  <Icon className="h-[18px] w-[18px]" />
                 </span>
-              </div>
-              
-              {/* Name & Description */}
-              <h3 className="mb-1 text-sm font-bold text-insi-slate-900 transition-colors group-hover:text-insi-blue sm:mb-2 sm:text-base">
-                {sys.name}
-              </h3>
-              <p className="mb-4 hidden text-xs leading-relaxed text-insi-slate-500 sm:block">
-                {sys.description}
-              </p>
-            </div>
-            
-            {/* Features list */}
-            <div className="mt-auto hidden w-full border-t border-insi-slate-100 pt-3 sm:block">
-              <div className="flex flex-wrap gap-x-3 gap-y-1">
-                {sys.features.map((feat, idx) => (
-                  <span key={idx} className="text-[10px] text-insi-slate-400 flex items-center">
-                    <span className={`w-1 h-1 rounded-full mr-1.5 ${isSelected ? 'bg-insi-blue' : 'bg-insi-slate-300'}`} />
-                    {feat}
+
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-start justify-between gap-1">
+                    <span className="block truncate text-sm font-bold leading-5 text-insi-slate-900 transition-colors group-hover:text-insi-blue">
+                      {sys.name}
+                    </span>
+                    <span
+                      className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-colors ${
+                        isSelected
+                          ? 'border-insi-blue bg-insi-blue text-white'
+                          : 'border-insi-slate-300 bg-white text-transparent'
+                      }`}
+                    >
+                      <Check className="h-2.5 w-2.5" />
+                    </span>
+                  </span>
+                  <span className="mt-1 block truncate text-[10px] font-medium leading-4 text-insi-slate-500">
+                    {sys.features[0]}
+                  </span>
+                  <span
+                    className={`mt-1 inline-flex rounded-full px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide ${
+                      isSelected ? 'bg-insi-blue text-white' : 'bg-insi-slate-100 text-insi-slate-500'
+                    }`}
+                  >
+                    {sys.badge}
+                  </span>
+                </span>
+
+                <HelpCircle className="absolute bottom-0 right-0 h-3.5 w-3.5 text-insi-slate-300 transition-colors group-hover:text-insi-blue" />
+              </span>
+            </button>
+
+            <div
+              id={`system-help-${index}`}
+              role="tooltip"
+              className={`pointer-events-none invisible absolute top-[calc(100%+8px)] z-50 w-72 translate-y-1 rounded-xl border border-slate-700 bg-slate-950 p-3.5 text-white opacity-0 shadow-xl transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 ${tooltipAlignment}`}
+            >
+              <span className="block text-sm font-bold">{sys.name}</span>
+              <span className="mt-1.5 block text-xs leading-5 text-slate-300">{sys.description}</span>
+              <span className="mt-3 block space-y-1.5">
+                {sys.features.map((feature) => (
+                  <span key={feature} className="flex items-start gap-2 text-[11px] font-medium leading-4 text-slate-200">
+                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-400" />
+                    {feature}
                   </span>
                 ))}
-              </div>
+              </span>
             </div>
-          </button>
+          </div>
         );
       })}
     </div>
