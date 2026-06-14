@@ -15,6 +15,7 @@ import type {
   ParapetSides,
   ValidationIssue,
 } from '../types/calculator';
+import { getMaximumSpan } from '../logic/validation';
 
 interface CalculatorFormProps {
   params: CalculatorParams;
@@ -147,11 +148,19 @@ export function CalculatorForm({ params, onChange, validationAlerts }: Calculato
   });
   const patch = (changes: Partial<CalculatorParams>) => onChange({ ...params, ...changes });
   const toggle = (id: string) => setOpen((current) => ({ ...current, [id]: !current[id] }));
+  const totalWidth = params.span_widths_m.reduce((sum, span) => sum + span, 0);
 
   const changeSpanCount = (count: number) => {
     const normalized = Math.max(1, Math.min(5, count));
-    const spans = Array.from({ length: normalized }, (_, index) => params.span_widths_m[index] ?? params.span_widths_m.at(-1) ?? 12);
+    const spanWidth = totalWidth / normalized;
+    const spans = Array.from({ length: normalized }, () => spanWidth);
     patch({ span_widths_m: spans });
+  };
+
+  const changeTotalWidth = (width: number) => {
+    const spanCount = Math.max(1, params.span_widths_m.length);
+    const spanWidth = width / spanCount;
+    patch({ span_widths_m: Array.from({ length: spanCount }, () => spanWidth) });
   };
 
   const updateMezzanine = (index: number, value: MezzanineParams) => {
@@ -175,15 +184,24 @@ export function CalculatorForm({ params, onChange, validationAlerts }: Calculato
       <Section
         id="geometry"
         title="Геометрия здания"
-        subtitle="Пролёты, длина, шаг рам и высота"
+        subtitle="Ширина, длина, высота, пролёты и шаг рам"
         icon={<Ruler className="h-5 w-5" />}
         open={open.geometry}
         onToggle={() => toggle('geometry')}
       >
-        <div className="field-grid three">
-          <NumberField label="Количество пролётов" value={params.span_widths_m.length} min={1} max={5} onChange={changeSpanCount} />
+        <div className="field-grid four">
+          <NumberField
+            label="Ширина здания"
+            value={totalWidth}
+            min={1}
+            max={getMaximumSpan(params.system, params.roof_type) * 5}
+            step={0.1}
+            unit="м"
+            onChange={changeTotalWidth}
+          />
           <NumberField label="Длина здания" value={params.building_length_m} min={0.1} max={1000} step={0.1} unit="м" onChange={(building_length_m) => patch({ building_length_m })} />
           <NumberField label="Высота до низа конструкций" value={params.height_m} min={0.1} max={60} step={0.05} unit="м" onChange={(height_m) => patch({ height_m })} />
+          <NumberField label="Количество пролётов" value={params.span_widths_m.length} min={1} max={5} onChange={changeSpanCount} />
         </div>
 
         <div className="repeat-grid">
