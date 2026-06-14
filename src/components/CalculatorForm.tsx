@@ -112,18 +112,22 @@ function OpeningEditor({
   title,
   value,
   onChange,
+  showSizeTypes = true,
 }: {
   title: string;
   value: OpeningParams;
   onChange: (value: OpeningParams) => void;
+  showSizeTypes?: boolean;
 }) {
   return (
     <div className={`subcard ${value.enabled ? 'is-highlighted' : ''}`}>
       <Toggle label={title} checked={value.enabled} onChange={(enabled) => onChange({ ...value, enabled })} />
       {value.enabled && (
-        <div className="field-grid two compact">
+        <div className={`field-grid compact ${showSizeTypes ? 'two' : ''}`}>
           <NumberField label="Количество" value={value.count} min={0} max={999} onChange={(count) => onChange({ ...value, count })} />
-          <NumberField label="Типоразмеров" value={value.size_types} min={0} max={99} onChange={(size_types) => onChange({ ...value, size_types })} />
+          {showSizeTypes && (
+            <NumberField label="Типоразмеров" value={value.size_types} min={0} max={99} onChange={(size_types) => onChange({ ...value, size_types })} />
+          )}
         </div>
       )}
     </div>
@@ -330,8 +334,8 @@ export function CalculatorForm({ params, onChange, validationAlerts }: Calculato
           ))}
         </div>
         <div className="cards-grid two">
-          <OpeningEditor title="Окна и двери в перегородках" value={params.partition_openings} onChange={(partition_openings) => patch({ partition_openings })} />
-          <OpeningEditor title="Ворота в перегородках" value={params.partition_gates} onChange={(partition_gates) => patch({ partition_gates })} />
+          <OpeningEditor title="Окна и двери в перегородках" value={params.partition_openings} showSizeTypes={false} onChange={(partition_openings) => patch({ partition_openings: { ...partition_openings, size_types: 0 } })} />
+          <OpeningEditor title="Ворота в перегородках" value={params.partition_gates} showSizeTypes={false} onChange={(partition_gates) => patch({ partition_gates: { ...partition_gates, size_types: 0 } })} />
         </div>
       </Section>
 
@@ -357,6 +361,7 @@ export function CalculatorForm({ params, onChange, validationAlerts }: Calculato
         </div>
         <div className="field-grid three">
           <label className="field"><span>Степень огнестойкости</span><select value={params.fire_resistance} onChange={(event) => patch({ fire_resistance: event.target.value as CalculatorParams['fire_resistance'] })}><option value="below_v">Ниже V</option><option value="v">V</option></select></label>
+          <NumberField label="Базовая цена" value={params.base_price_rub} min={1000} max={1000000} step={1000} unit="руб." onChange={(base_price_rub) => patch({ base_price_rub })} />
           <NumberField label="Издержки" value={params.overhead_rate} min={-50} max={150} step={0.5} unit="%" onChange={(overhead_rate) => patch({ overhead_rate })} />
           <label className="field"><span>Название проекта</span><input value={params.project_name ?? ''} onChange={(event) => patch({ project_name: event.target.value })} placeholder="Например, складской комплекс" /></label>
           <label className="field"><span>Клиент</span><input value={params.client ?? ''} onChange={(event) => patch({ client: event.target.value })} /></label>

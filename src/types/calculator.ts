@@ -76,6 +76,7 @@ export interface CalculatorParams {
   seismic: 6 | 7 | 8 | 9;
   fire_resistance: FireResistance;
   project_sections: Record<ProjectSection, boolean>;
+  base_price_rub: number;
   overhead_rate: number;
 
   span_widths_m: number[];

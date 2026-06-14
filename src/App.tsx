@@ -50,7 +50,7 @@ function App() {
             </div>
           </div>
           <div className="hidden items-center gap-4 text-xs font-medium text-insi-slate-500 sm:flex">
-            <span>Базовая цена: 80 000 руб/т</span>
+            <span>Базовая цена: {params.base_price_rub.toLocaleString('ru-RU')} руб.</span>
             <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
             <span className="text-green-600 font-semibold">Все системы активны</span>
           </div>

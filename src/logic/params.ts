@@ -76,6 +76,7 @@ export function hydrateCalculatorParams(value: unknown): CalculatorParams {
       km: boolean(projectSections.km, defaults.project_sections.km),
       as: boolean(projectSections.as, defaults.project_sections.as),
     },
+    base_price_rub: finiteNumber(source.base_price_rub, defaults.base_price_rub),
     overhead_rate: finiteNumber(source.overhead_rate, defaults.overhead_rate),
     span_widths_m: numberArray(source.span_widths_m, defaults.span_widths_m, 5),
     building_length_m: finiteNumber(source.building_length_m, defaults.building_length_m),

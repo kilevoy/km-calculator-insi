@@ -26,6 +26,17 @@ const cases: CalculatorParams[] = Array.from({ length: 30 }, (_, index) => {
 });
 
 describe('Calculator smoke matrix: 30 representative cases', () => {
+  test('scales monetary results with the editable base price', () => {
+    const baseline = calculate(structuredClone(DEFAULT_PARAMS));
+    const increasedParams = structuredClone(DEFAULT_PARAMS);
+    increasedParams.base_price_rub *= 1.25;
+    const increased = calculate(increasedParams);
+
+    expect(increased.cost).toBeCloseTo(baseline.cost * 1.25, 6);
+    expect(increased.term).toBeCloseTo(baseline.term * 1.25, 2);
+    expect(increased.metal_consumption).toBe(baseline.metal_consumption);
+  });
+
   test.each(cases.map((params, index) => [index + 1, params] as const))('case #%i produces a finite result', (_id, params) => {
     const result = calculate(params);
     expect(result.status).toBe('valid');

@@ -34,6 +34,7 @@ export function PDFReport({ params, result, reportRef }: PDFReportProps) {
     ['Шаг рам', `${params.frame_step_mode === 'same' ? 'одинаковый' : 'разный'}: ${params.frame_steps_m.join(', ')} м`],
     ['Площадь расчёта', `${result.area_m2.toLocaleString('ru-RU')} м²`],
     ['Нормативы / сейсмика', `${params.country === 'snip' ? 'СНиП / СП' : 'Еврокод'}, ${params.seismic} баллов`],
+    ['Базовая цена', `${params.base_price_rub.toLocaleString('ru-RU')} руб.`],
     ['Разделы', [params.project_sections.km && 'КМ', params.project_sections.as && 'АС'].filter(Boolean).join(', ')],
     ['Перекрытия', params.floor.enabled ? `${params.floor.spans_m.join(', ')} м; этажей: ${params.floor.storeys}; нагрузка ${params.floor.load_mode === 'same' ? 'одинаковая' : 'разная'}` : 'Нет'],
     ['Антресоли', enabledMezzanines.length ? enabledMezzanines.map((item, index) => `№${index + 1}: ${item.length_m}×${item.width_m} м, ${item.storeys} эт.`).join('; ') : 'Нет'],

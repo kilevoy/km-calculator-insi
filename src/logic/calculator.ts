@@ -7,8 +7,6 @@ import type {
 } from '../types/calculator';
 import { validateParams } from './validation';
 
-const BASE_PRICE = CALCULATOR_COEFFICIENTS._meta.base_price_rub;
-
 type Coefficients = Record<string, number>;
 
 const round = (value: number, digits = 2) => {
@@ -281,6 +279,7 @@ function calculateArea(params: CalculatorParams): number {
 
 export function calculate(params: CalculatorParams): CalculatorResult {
   const issues = validateParams(params);
+  const basePrice = params.base_price_rub;
   const seismicCoefficient = params.seismic === 8 ? 0.2 : params.seismic === 9 ? 0.4 : 0;
   const coefficients: Coefficients = {
     frame: baseCoefficient(params) + spanCoefficient(params) + heightCoefficient(params) +
@@ -301,7 +300,7 @@ export function calculate(params: CalculatorParams): CalculatorResult {
   const countryMultiplier = params.country === 'eurocode' ? 1.3 : 1;
   const seismicMultiplier = params.seismic >= 7 ? 1.05 : 1;
   const overheadMultiplier = 1 + params.overhead_rate / 100;
-  const costRub = totalCoefficient * BASE_PRICE * countryMultiplier * seismicMultiplier * overheadMultiplier;
+  const costRub = totalCoefficient * basePrice * countryMultiplier * seismicMultiplier * overheadMultiplier;
   const cost = costRub / 1000;
   const term = costRub / 180 / 1000 * 20;
   const area = calculateArea(params);
@@ -329,7 +328,7 @@ export function calculate(params: CalculatorParams): CalculatorResult {
       id,
       name: labels[id] ?? id,
       coefficient: round(coefficient, 4),
-      value: Math.round(coefficient * BASE_PRICE * countryMultiplier * seismicMultiplier * overheadMultiplier),
+      value: Math.round(coefficient * basePrice * countryMultiplier * seismicMultiplier * overheadMultiplier),
       percentage: totalCoefficient > 0 ? round(coefficient / totalCoefficient * 100, 1) : 0,
     }));
 
@@ -344,7 +343,7 @@ export function calculate(params: CalculatorParams): CalculatorResult {
     breakdown,
     issues,
     trace: {
-      base_price_rub: BASE_PRICE,
+      base_price_rub: basePrice,
       total_coefficient: round(totalCoefficient, 5),
       country_multiplier: countryMultiplier,
       seismic_multiplier: seismicMultiplier,

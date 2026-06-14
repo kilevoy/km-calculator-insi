@@ -54,6 +54,9 @@ export function validateParams(params: CalculatorParams): ValidationIssue[] {
   if (params.overhead_rate < -50 || params.overhead_rate > 150) {
     issues.push(issue('overhead.range', 'overhead_rate', 'Издержки должны быть в диапазоне от −50% до 150%.'));
   }
+  if (!Number.isFinite(params.base_price_rub) || params.base_price_rub < 1_000 || params.base_price_rub > 1_000_000) {
+    issues.push(issue('base_price.range', 'base_price_rub', 'Базовая цена должна быть от 1 000 до 1 000 000 руб.'));
+  }
   if (params.has_subtruss && params.system !== 'Великан') {
     issues.push(issue('subtruss.system', 'has_subtruss', 'Подстропильные фермы предусмотрены Excel-моделью только для системы «Великан».'));
   }

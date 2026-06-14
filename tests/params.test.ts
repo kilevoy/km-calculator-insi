@@ -41,4 +41,10 @@ describe('external calculator parameter hydration', () => {
     input.walls.windows.count = 999;
     expect(hydrated.walls.windows.count).toBe(DEFAULT_PARAMS.walls.windows.count);
   });
+
+  test('preserves an editable base price and falls back for malformed values', () => {
+    expect(hydrateCalculatorParams({ ...DEFAULT_PARAMS, base_price_rub: 95_000 }).base_price_rub).toBe(95_000);
+    expect(hydrateCalculatorParams({ ...DEFAULT_PARAMS, base_price_rub: '95000' }).base_price_rub)
+      .toBe(DEFAULT_PARAMS.base_price_rub);
+  });
 });

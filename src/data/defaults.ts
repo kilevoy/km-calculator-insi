@@ -1,4 +1,5 @@
 import type { CalculatorParams, MezzanineParams, OpeningParams, PartitionParams } from '../types/calculator';
+import { CALCULATOR_COEFFICIENTS } from './coefficients';
 
 const emptyOpening = (): OpeningParams => ({ enabled: false, count: 0, size_types: 0 });
 const emptyMezzanine = (): MezzanineParams => ({
@@ -22,6 +23,7 @@ export const DEFAULT_PARAMS: CalculatorParams = {
   seismic: 6,
   fire_resistance: 'below_v',
   project_sections: { km: true, as: false },
+  base_price_rub: CALCULATOR_COEFFICIENTS._meta.base_price_rub,
   overhead_rate: 0,
 
   span_widths_m: [12],
