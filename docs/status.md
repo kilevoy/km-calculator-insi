@@ -22,7 +22,7 @@
 - Подключить корпоративные Google Workspace credentials.
 - Назначить production folder ID и проверить реальную загрузку.
 - Развернуть frontend и FastAPI proxy за HTTPS.
-- Настроить GitHub Pages в `Settings → Pages` после первого push.
+- Разрешить GitHub Pages: текущий тариф не поддерживает Pages для приватного репозитория.
 
 Это не дефекты расчётного приложения, а требования конкретного production-окружения.
 
