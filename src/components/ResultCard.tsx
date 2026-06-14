@@ -3,12 +3,14 @@ import type { CalculatorParams, CalculatorResult } from '../types/calculator';
 import { formatDays, formatWeight } from '../utils/formatters';
 import { useGoogleDrive } from '../hooks/useGoogleDrive';
 import { Share2, FileDown, CloudUpload, Check, AlertCircle, Loader2 } from 'lucide-react';
+import { createReportFilename } from '../utils/report-identity';
 
 interface ResultCardProps {
   params: CalculatorParams;
   result: CalculatorResult;
   shareUrl: string;
   reportRef: React.MutableRefObject<HTMLDivElement | null>;
+  calculationNumber: string;
 }
 
 const CostBreakdown = lazy(() => import('./CostBreakdown'));
@@ -18,6 +20,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
   result,
   shareUrl,
   reportRef,
+  calculationNumber,
 }) => {
   // Count-up animation for cost
   const [displayCost, setDisplayCost] = useState(0);
@@ -59,9 +62,12 @@ export const ResultCard: React.FC<ResultCardProps> = ({
   const canIssueReport = result.status === 'valid';
 
   const getReportFilename = () => {
-    const sysClean = params.system.replace(/\s+/g, '_');
-    const dateStr = new Date().toISOString().slice(0, 10);
-    return `КМ_${sysClean}_${result.area_m2}м2_${dateStr}.pdf`;
+    return createReportFilename({
+      calculationNumber,
+      projectName: params.project_name,
+      system: params.system,
+      areaM2: result.area_m2,
+    });
   };
 
   const handleCopyLink = () => {

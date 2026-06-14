@@ -12,7 +12,12 @@ describe('commercial proposal content', () => {
     params.height_m = 8;
     const result = calculate(params);
     const html = renderToStaticMarkup(
-      <PDFReport params={params} result={result} reportRef={{ current: null }} />,
+      <PDFReport
+        params={params}
+        result={result}
+        reportRef={{ current: null }}
+        calculationNumber="KM-20260614-120000-TEST"
+      />,
     );
 
     expect(html).toContain('Ширина здания');
@@ -26,5 +31,9 @@ describe('commercial proposal content', () => {
     expect(html).toContain('Степень огнестойкости');
     expect(html).not.toContain('Базовая цена');
     expect(html).not.toContain('Коэффициент');
+    expect(html).toContain('KM-20260614-120000-TEST');
+    expect(html).toContain('Проект');
+    expect(html).toContain('Заказчик');
+    expect(html).toContain('Менеджер');
   });
 });

@@ -8,6 +8,7 @@ import { SavedCalculations } from './components/SavedCalculations';
 import { PDFReport } from './components/PDFReport';
 import { Calculator, Settings, History, FileText } from 'lucide-react';
 import { formatCurrency, formatDays } from './utils/formatters';
+import { createCalculationNumber } from './utils/report-identity';
 
 function App() {
   const {
@@ -21,6 +22,7 @@ function App() {
 
   const reportRef = useRef<HTMLDivElement | null>(null);
   const mobileWorkspaceRef = useRef<HTMLDivElement | null>(null);
+  const [calculationNumber] = useState(() => createCalculationNumber());
 
   // Tab state for mobile layout
   const [activeTab, setActiveTab] = useState<'params' | 'result' | 'drafts'>('params');
@@ -165,6 +167,7 @@ function App() {
               result={result}
               shareUrl={shareUrl}
               reportRef={reportRef}
+              calculationNumber={calculationNumber}
             />
           </div>
 
@@ -183,7 +186,12 @@ function App() {
       </main>
 
       {/* Hidden printable A4 report component for PDF output rendering */}
-      <PDFReport params={params} result={result} reportRef={reportRef} />
+      <PDFReport
+        params={params}
+        result={result}
+        reportRef={reportRef}
+        calculationNumber={calculationNumber}
+      />
 
       {/* Footer */}
       <footer className="bg-white border-t border-insi-slate-200/80 px-6 pb-24 pt-6 mt-12 text-center text-xs text-insi-slate-400 lg:pb-6">

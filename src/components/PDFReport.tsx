@@ -11,6 +11,7 @@ interface PDFReportProps {
   params: CalculatorParams;
   result: CalculatorResult;
   reportRef: MutableRefObject<HTMLDivElement | null>;
+  calculationNumber: string;
 }
 
 const roofLabels: Record<CalculatorParams['roof_type'], string> = {
@@ -27,8 +28,12 @@ const formatNumber = (value: number) => value.toLocaleString('ru-RU', {
   maximumFractionDigits: 3,
 });
 
-export function PDFReport({ params, result, reportRef }: PDFReportProps) {
-  const calculationNumber = `KM-${new Date().toISOString().slice(0, 10).replaceAll('-', '')}`;
+export function PDFReport({
+  params,
+  result,
+  reportRef,
+  calculationNumber,
+}: PDFReportProps) {
   const enabledMezzanines = params.mezzanines.filter(({ enabled }) => enabled);
   const totalWidth = params.span_widths_m.reduce((sum, value) => sum + value, 0);
   const footprintArea = totalWidth * params.building_length_m;
@@ -89,9 +94,11 @@ export function PDFReport({ params, result, reportRef }: PDFReportProps) {
         </header>
 
         <h1>Разработка проектной документации марки КМ</h1>
-        {(params.client || params.project_name) && (
-          <p className="pdf-lead">{params.project_name || 'Проект'}{params.client ? ` · Заказчик: ${params.client}` : ''}</p>
-        )}
+        <section className="pdf-project-meta">
+          <div><span>Проект</span><strong>{params.project_name || 'Не указан'}</strong></div>
+          <div><span>Заказчик</span><strong>{params.client || 'Не указан'}</strong></div>
+          <div><span>Менеджер</span><strong>{params.manager || 'Не указан'}</strong></div>
+        </section>
 
         <section className="pdf-summary">
           <div><span>Стоимость</span><strong>{formatCurrency(result.cost)}</strong></div>
