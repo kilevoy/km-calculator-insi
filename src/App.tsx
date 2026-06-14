@@ -9,8 +9,9 @@ import { PDFReport } from './components/PDFReport';
 import { Calculator, Settings, History, FileText } from 'lucide-react';
 import { formatCurrency, formatDays } from './utils/formatters';
 import { createCalculationNumber } from './utils/report-identity';
+import { AdminASModelPage } from './components/AdminASModelPage';
 
-function App() {
+function CalculatorApp() {
   const {
     params,
     setParams,
@@ -52,6 +53,7 @@ function App() {
             </div>
           </div>
           <div className="hidden items-center gap-4 text-xs font-medium text-insi-slate-500 sm:flex">
+            <a href="?admin=as" className="font-semibold text-insi-blue hover:underline">Модель АС</a>
             <span>Базовая цена: {params.base_price_rub.toLocaleString('ru-RU')} руб.</span>
             <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
             <span className="text-green-600 font-semibold">Все системы активны</span>
@@ -228,6 +230,11 @@ function App() {
       </div>
     </div>
   );
+}
+
+function App() {
+  const searchParams = new URLSearchParams(window.location.search);
+  return searchParams.get('admin') === 'as' ? <AdminASModelPage /> : <CalculatorApp />;
 }
 
 export default App;
