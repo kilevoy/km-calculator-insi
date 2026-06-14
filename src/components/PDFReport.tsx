@@ -21,30 +21,63 @@ const roofLabels: Record<CalculatorParams['roof_type'], string> = {
 };
 
 const yesNo = (value: boolean) => value ? 'Да' : 'Нет';
+const loadModeLabel = (value: CalculatorParams['floor']['load_mode']) =>
+  value === 'same' ? 'одинаковая' : 'разная';
+const formatNumber = (value: number) => value.toLocaleString('ru-RU', {
+  maximumFractionDigits: 3,
+});
 
 export function PDFReport({ params, result, reportRef }: PDFReportProps) {
   const calculationNumber = `KM-${new Date().toISOString().slice(0, 10).replaceAll('-', '')}`;
   const enabledMezzanines = params.mezzanines.filter(({ enabled }) => enabled);
-  const stairCount = [...params.stairs.concrete, ...params.stairs.metal].reduce((sum, value) => sum + value, 0);
+  const totalWidth = params.span_widths_m.reduce((sum, value) => sum + value, 0);
+  const footprintArea = totalWidth * params.building_length_m;
+  const stairDetails = [
+    ...params.stairs.concrete.map((count, index) => count > 0 ? `под ж/б ступени, ${index + 1} марш.: ${count}` : ''),
+    ...params.stairs.metal.map((count, index) => count > 0 ? `металлические, ${index + 1} марш.: ${count}` : ''),
+  ].filter(Boolean);
+  const wallOpenings = [
+    params.walls.windows.enabled && `окна: ${params.walls.windows.count} шт. / ${params.walls.windows.size_types} тип.`,
+    params.walls.gates.enabled && `ворота: ${params.walls.gates.count} шт. / ${params.walls.gates.size_types} тип.`,
+    params.walls.doors.enabled && `двери: ${params.walls.doors.count} шт. / ${params.walls.doors.size_types} тип.`,
+  ].filter(Boolean);
+  const partitionOpenings = [
+    params.partition_openings.enabled && `окна и двери: ${params.partition_openings.count} шт.`,
+    params.partition_gates.enabled && `ворота: ${params.partition_gates.count} шт.`,
+  ].filter(Boolean);
+  const craneDetails = [
+    params.support_crane.enabled &&
+      `опорный: ${params.support_crane.spans_count} прол., нагрузка ${loadModeLabel(params.support_crane.capacity_mode)}`,
+    params.suspension_crane.enabled &&
+      `подвесной: ${params.suspension_crane.spans_count} прол., нагрузка ${loadModeLabel(params.suspension_crane.capacity_mode)}`,
+  ].filter(Boolean);
 
   const rows: Array<[string, string]> = [
-    ['Система / кровля', `${params.system} / ${roofLabels[params.roof_type]}`],
-    ['Пролёты', params.span_widths_m.map((value) => `${value} м`).join(' + ')],
-    ['Длина / высота', `${params.building_length_m} м / ${params.height_m} м`],
-    ['Шаг рам', `${params.frame_step_mode === 'same' ? 'одинаковый' : 'разный'}: ${params.frame_steps_m.join(', ')} м`],
-    ['Площадь расчёта', `${result.area_m2.toLocaleString('ru-RU')} м²`],
-    ['Нормативы / сейсмика', `${params.country === 'snip' ? 'СНиП / СП' : 'Еврокод'}, ${params.seismic} баллов`],
-    ['Базовая цена', `${params.base_price_rub.toLocaleString('ru-RU')} руб.`],
-    ['Разделы', [params.project_sections.km && 'КМ', params.project_sections.as && 'АС'].filter(Boolean).join(', ')],
-    ['Перекрытия', params.floor.enabled ? `${params.floor.spans_m.join(', ')} м; этажей: ${params.floor.storeys}; нагрузка ${params.floor.load_mode === 'same' ? 'одинаковая' : 'разная'}` : 'Нет'],
+    ['Конструктивная система', params.system],
+    ['Тип кровли', roofLabels[params.roof_type]],
+    ['Ширина здания', `${formatNumber(totalWidth)} м`],
+    ['Длина здания', `${formatNumber(params.building_length_m)} м`],
+    ['Высота до низа конструкций', `${formatNumber(params.height_m)} м`],
+    ['Количество пролётов', `${params.span_widths_m.length}`],
+    ['Ширины пролётов', params.span_widths_m.map((value) => `${formatNumber(value)} м`).join(' + ')],
+    ['Шаг рам', `${params.frame_step_mode === 'same' ? 'одинаковый' : 'разный'}: ${params.frame_steps_m.map(formatNumber).join(', ')} м`],
+    ['Площадь застройки', `${formatNumber(footprintArea)} м²`],
+    ['Площадь расчёта', `${formatNumber(result.area_m2)} м²`],
+    ['Нормативная база', params.country === 'snip' ? 'СНиП / СП' : 'Еврокод'],
+    ['Сейсмичность', `${params.seismic} баллов`],
+    ['Степень огнестойкости', params.fire_resistance === 'v' ? 'V' : 'Ниже V'],
+    ['Разделы проекта', [params.project_sections.km && 'КМ', params.project_sections.as && 'АС'].filter(Boolean).join(', ')],
+    ['Подстропильные фермы', yesNo(params.has_subtruss)],
+    ['Перекрытия', params.floor.enabled ? `${params.floor.spans_m.map(formatNumber).join(', ')} м; этажей: ${params.floor.storeys}; нагрузка ${loadModeLabel(params.floor.load_mode)}` : 'Нет'],
     ['Антресоли', enabledMezzanines.length ? enabledMezzanines.map((item, index) => `№${index + 1}: ${item.length_m}×${item.width_m} м, ${item.storeys} эт.`).join('; ') : 'Нет'],
-    ['Опорный / подвесной кран', `${yesNo(params.support_crane.enabled)} / ${yesNo(params.suspension_crane.enabled)}`],
+    ['Краны', craneDetails.join('; ') || 'Нет'],
     ['Кровля', `${ROOF_CLADDING_LABELS[params.roof_cladding]}; снегозадержание: ${yesNo(params.has_snow_retention)}; ограждение: ${yesNo(params.has_roof_railing)}; водосток: ${yesNo(params.has_drainage)}`],
-    ['Стены', `${WALL_CLADDING_LABELS[params.walls.cladding]}, ${params.walls.thickness_mm} мм, ${params.walls.orientation === 'horizontal' ? 'горизонтально' : 'вертикально'}`],
-    ['Проёмы', `окна ${params.walls.windows.count}, ворота ${params.walls.gates.count}, двери ${params.walls.doors.count}`],
+    ['Стены', params.walls.cladding === 'none' ? 'Нет' : `${WALL_CLADDING_LABELS[params.walls.cladding]}, ${params.walls.thickness_mm} мм, ${params.walls.orientation === 'horizontal' ? 'горизонтально' : 'вертикально'}`],
+    ['Проёмы в стенах', wallOpenings.join('; ') || 'Нет'],
     ['Перегородки', params.partitions.filter(({ enabled }) => enabled).map(({ kind, area_m2 }) => `${PARTITION_KIND_LABELS[kind]}: ${area_m2} м²`).join('; ') || 'Нет'],
-    ['Парапеты', `продольные стороны: ${params.parapet.long_sides}; торцы: ${params.parapet.end_sides}; вынос: ${yesNo(params.parapet.has_overhang)}`],
-    ['Лестницы', stairCount ? `${stairCount} шт.` : 'Нет'],
+    ['Проёмы в перегородках', partitionOpenings.join('; ') || 'Нет'],
+    ['Парапеты', params.parapet.long_sides || params.parapet.end_sides ? `продольные стороны: ${params.parapet.long_sides}; торцы: ${params.parapet.end_sides}; вынос: ${yesNo(params.parapet.has_overhang)}` : 'Нет'],
+    ['Лестницы', stairDetails.join('; ') || 'Нет'],
   ];
 
   return (
@@ -72,16 +105,21 @@ export function PDFReport({ params, result, reportRef }: PDFReportProps) {
           <tbody>{rows.map(([label, value]) => <tr key={label}><th>{label}</th><td>{value}</td></tr>)}</tbody>
         </table>
 
+        <div className="pdf-page-break" />
+        <div className="pdf-continuation-header">
+          <strong>ИНСИ · Коммерческое предложение</strong>
+          <span>{calculationNumber} · Структура стоимости</span>
+        </div>
         <h2>Структура стоимости</h2>
         <table className="pdf-table">
-          <thead><tr><th>Раздел</th><th>Коэффициент</th><th>Доля</th><th>Стоимость</th></tr></thead>
+          <thead><tr><th>Раздел</th><th>Доля</th><th>Стоимость</th></tr></thead>
           <tbody>
             {result.breakdown.map((item) => (
               <tr key={item.id}>
-                <td>{item.name}</td><td>{item.coefficient.toFixed(3)}</td><td>{item.percentage.toFixed(1)}%</td><td>{formatRubles(item.value)}</td>
+                <td>{item.name}</td><td>{item.percentage.toFixed(1)}%</td><td>{formatRubles(item.value)}</td>
               </tr>
             ))}
-            <tr className="pdf-total"><td>Итого</td><td>{result.trace.total_coefficient.toFixed(3)}</td><td>100%</td><td>{formatRubles(result.cost * 1000)}</td></tr>
+            <tr className="pdf-total"><td>Итого</td><td>100%</td><td>{formatRubles(result.cost * 1000)}</td></tr>
           </tbody>
         </table>
 
