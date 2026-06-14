@@ -189,7 +189,7 @@ export function CalculatorForm({ params, onChange, validationAlerts }: Calculato
         open={open.geometry}
         onToggle={() => toggle('geometry')}
       >
-        <div className="field-grid four">
+        <div className="field-grid three">
           <NumberField
             label="Ширина здания"
             value={totalWidth}
@@ -201,6 +201,9 @@ export function CalculatorForm({ params, onChange, validationAlerts }: Calculato
           />
           <NumberField label="Длина здания" value={params.building_length_m} min={0.1} max={1000} step={0.1} unit="м" onChange={(building_length_m) => patch({ building_length_m })} />
           <NumberField label="Высота до низа конструкций" value={params.height_m} min={0.1} max={60} step={0.05} unit="м" onChange={(height_m) => patch({ height_m })} />
+        </div>
+
+        <div className="field-grid three">
           <NumberField label="Количество пролётов" value={params.span_widths_m.length} min={1} max={5} onChange={changeSpanCount} />
         </div>
 
