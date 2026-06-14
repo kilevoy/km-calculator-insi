@@ -17,6 +17,7 @@
 - [ ] Задать production secrets и CORS origins.
 - [ ] Развернуть frontend и proxy за HTTPS.
 - [ ] Провести приёмку менеджерами на 10-20 реальных проектах.
-- [ ] Добавить Git remote и опубликовать репозиторий.
+- [x] Подготовить GitHub Actions для проверки и публикации Pages.
+- [ ] Включить GitHub Pages в настройках репозитория после первого push.
 
 Изменение исходной книги требует нового SHA-256, повторного `npm run audit:excel`, обновления эталонов через `npm run fixtures:excel` и полного `npm run quality`.

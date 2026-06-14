@@ -2,7 +2,17 @@
   "name": "km-calculator-insi",
   "private": true,
   "version": "1.0.0",
+  "license": "MIT",
+  "description": "Калькулятор стоимости проектных работ КМ на базе Excel R2.0.1",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kilevoy/km-calculator-insi.git"
+  },
+  "homepage": "https://kilevoy.github.io/km-calculator-insi/",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -16,7 +26,6 @@
     "quality": "npm run lint && npm run typecheck && npm test && npm run test:server && npm run build"
   },
   "dependencies": {
-    "@types/canvas-confetti": "^1.9.0",
     "canvas-confetti": "^1.9.4",
     "html2pdf.js": "^0.14.0",
     "lucide-react": "^1.18.0",
@@ -26,6 +35,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^24.13.2",
     "@types/react": "^18.3.28",
     "@types/react-dom": "^18.3.7",

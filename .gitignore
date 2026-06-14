@@ -10,10 +10,15 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.env
+.env.*
+!.env.example
 *.local
 __pycache__/
 *.pyc
 *.tsbuildinfo
+.coverage
+coverage/
 
 # Local research and generated diagnostics
 scratch/
@@ -30,6 +35,7 @@ vite-review.*.log
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj

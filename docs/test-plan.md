@@ -4,7 +4,7 @@
 - Задача: полный точный производственный калькулятор на базе Excel R2.0.1.
 - План: `docs/plans.md`.
 - Статус: `docs/status.md`.
-- Последнее обновление: 2026-06-13.
+- Последнее обновление: 2026-06-14.
 
 ## Область
 - Включено: извлечение Excel-модели, расчёт, валидация, UI, PDF, URL, localStorage, Drive API.
@@ -49,12 +49,13 @@
 - Drive: path traversal, oversized file, неверный MIME, отсутствующая auth.
 
 ## Acceptance Gates
-- [ ] `npm run lint`
-- [ ] `npm run typecheck`
-- [ ] `npm test`
-- [ ] `npm run build`
-- [ ] `npm run test:e2e`
-- [ ] `npm run validate:excel`
+- [x] `npm run lint`
+- [x] `npm run typecheck`
+- [x] `npm test`
+- [x] `npm run test:server`
+- [x] `npm run build`
+- [ ] Browser E2E в CI
+- [x] Excel fixtures проверяются unit/integration-тестами
 - [ ] initial JS gzip менее 250 KB либо документированное исключение.
 - [ ] WCAG AA для основных форм и действий.
 - [ ] 0 blocker/critical дефектов.
@@ -66,8 +67,7 @@ npm run lint
 npm run typecheck
 npm test
 npm run build
-npm run test:e2e
-npm run validate:excel
+npm run test:server
 npm run quality
 ```
 
@@ -75,4 +75,3 @@ npm run quality
 - Excel может зависеть от кэша вычисленных значений и скрытых служебных ячеек.
 - Часть формул может отражать исторические дефекты книги; такие случаи должны быть решены явно, а не подогнаны тестами.
 - Google Drive нельзя считать проверенным без целевого аккаунта и папки.
-
