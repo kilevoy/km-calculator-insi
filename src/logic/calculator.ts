@@ -1,4 +1,7 @@
-import { CALCULATOR_COEFFICIENTS } from '../data/coefficients';
+import {
+  CALCULATOR_COEFFICIENTS,
+  type CalculatorCoefficientModel,
+} from '../data/coefficients';
 import type {
   CalculatorParams,
   CalculatorResult,
@@ -32,12 +35,12 @@ function tableValue(
   return 0;
 }
 
-function systemData(system: SystemType) {
-  return CALCULATOR_COEFFICIENTS.systems[system];
+function systemData(system: SystemType, model: CalculatorCoefficientModel) {
+  return model.systems[system];
 }
 
-function baseCoefficient(params: CalculatorParams): number {
-  const data = systemData(params.system);
+function baseCoefficient(params: CalculatorParams, model: CalculatorCoefficientModel): number {
+  const data = systemData(params.system, model);
   const base = data.base_coef[params.roof_type as keyof typeof data.base_coef] ?? 0;
   if (!('multi_span' in data) || params.span_widths_m.length === 1) return base;
   const multiSpan = data.multi_span[params.roof_type as keyof typeof data.multi_span];
@@ -45,11 +48,11 @@ function baseCoefficient(params: CalculatorParams): number {
   return multiSpan.first_span + (params.span_widths_m.length - 1) * multiSpan.additional_span;
 }
 
-function spanCoefficient(params: CalculatorParams): number {
-  const spanTable = systemData(params.system).span;
+function spanCoefficient(params: CalculatorParams, model: CalculatorCoefficientModel): number {
+  const spanTable = systemData(params.system, model).span;
   const isMultiSpanSystem = !['Спринт-М', 'Спринт-2М', 'Крон'].includes(params.system);
   const rows = spanTable[
-    (isMultiSpanSystem ? 'two_slope' : params.roof_type) as keyof (typeof CALCULATOR_COEFFICIENTS.systems)[SystemType]['span']
+    (isMultiSpanSystem ? 'two_slope' : params.roof_type) as keyof CalculatorCoefficientModel['systems'][SystemType]['span']
   ] as ReadonlyArray<{ max?: number; above?: number; coef: number; new_span_coef?: number; step?: number }> | undefined ??
     spanTable.two_slope as ReadonlyArray<{ max?: number; above?: number; coef: number; new_span_coef?: number; step?: number }>;
 
@@ -73,8 +76,8 @@ function spanCoefficient(params: CalculatorParams): number {
   return total + (repeatedBracket?.new_span_coef ?? 0);
 }
 
-function heightCoefficient(params: CalculatorParams): number {
-  const data = systemData(params.system);
+function heightCoefficient(params: CalculatorParams, model: CalculatorCoefficientModel): number {
+  const data = systemData(params.system, model);
   const rows = data.height[params.roof_type as keyof typeof data.height] ??
     data.height.two_slope;
   const isMultiSpanSystem = !['Спринт-М', 'Спринт-2М', 'Крон'].includes(params.system);
@@ -109,7 +112,10 @@ function lengthAndStepCoefficient(params: CalculatorParams): number {
   return length + (params.frame_step_mode === 'different' ? 0.2 : 0);
 }
 
-function additionsCoefficients(params: CalculatorParams): Coefficients {
+function additionsCoefficients(
+  params: CalculatorParams,
+  model: CalculatorCoefficientModel,
+): Coefficients {
   const averageStep = params.frame_steps_m.reduce((sum, step) => sum + step, 0) / params.frame_steps_m.length;
   const frameBays = Math.max(1, Math.ceil(params.building_length_m / averageStep));
   const floor = params.floor.enabled
@@ -126,7 +132,7 @@ function additionsCoefficients(params: CalculatorParams): Coefficients {
     ? 0.5 * Math.max(1, params.span_widths_m.length - 1)
     : 0;
 
-  const selectedSystem = systemData(params.system) as ReturnType<typeof systemData> & {
+  const selectedSystem = systemData(params.system, model) as ReturnType<typeof systemData> & {
     crane?: Record<string, number>;
   };
   const craneData = selectedSystem.crane;
@@ -143,7 +149,7 @@ function additionsCoefficients(params: CalculatorParams): Coefficients {
       (selected.capacity_mode === 'different' && selected.spans_count > 1 ? Number(different) : 0);
   };
 
-  const stairTables = CALCULATOR_COEFFICIENTS.additional_elements.stairs;
+  const stairTables = model.additional_elements.stairs;
   const concreteValues = Object.values(stairTables.concrete_steps);
   const metalValues = Object.values(stairTables.metal_steps);
   const stairs =
@@ -160,7 +166,7 @@ function additionsCoefficients(params: CalculatorParams): Coefficients {
   };
 }
 
-function roofCoefficient(params: CalculatorParams): number {
+function roofCoefficient(params: CalculatorParams, model: CalculatorCoefficientModel): number {
   const accessories =
     (params.has_snow_retention ? 0.04 : 0) +
     (params.has_roof_railing ? 0.04 : 0);
@@ -171,8 +177,8 @@ function roofCoefficient(params: CalculatorParams): number {
   const totalWidth = params.span_widths_m.reduce((sum, value) => sum + value, 0);
   const roofArea = totalWidth * params.building_length_m;
   const slopeKey = params.roof_type === 'one_slope' ? 'one_slope' : 'two_slope';
-  const key = `${slopeKey}_profile` as keyof typeof CALCULATOR_COEFFICIENTS.additional_elements.roof_cladding;
-  const table = CALCULATOR_COEFFICIENTS.additional_elements.roof_cladding[key];
+  const key = `${slopeKey}_profile` as keyof CalculatorCoefficientModel['additional_elements']['roof_cladding'];
+  const table = model.additional_elements.roof_cladding[key];
   let coefficient = table ? tableValue(table.span_ranges, totalWidth) : 0;
   if (table && roofArea > table.area_over_400.threshold) {
     coefficient += ceilingSteps(roofArea, table.area_over_400.threshold, table.area_over_400.step) *
@@ -181,7 +187,10 @@ function roofCoefficient(params: CalculatorParams): number {
   return coefficient + accessories;
 }
 
-function wallAndOpeningCoefficients(params: CalculatorParams): Coefficients {
+function wallAndOpeningCoefficients(
+  params: CalculatorParams,
+  model: CalculatorCoefficientModel,
+): Coefficients {
   if (params.walls.cladding === 'none') {
     return { walls: 0, wall_openings: 0 };
   }
@@ -202,7 +211,7 @@ function wallAndOpeningCoefficients(params: CalculatorParams): Coefficients {
         : 2 * wallHeight * width;
   const wallArea = gableArea + 2 * wallHeight * params.building_length_m;
   const areaSteps = ceilingSteps(wallArea, 300, 10);
-  const wallsData = CALCULATOR_COEFFICIENTS.additional_elements.walls.types;
+  const wallsData = model.additional_elements.walls.types;
   let base: number;
   let perStep: number;
 
@@ -233,8 +242,8 @@ function wallAndOpeningCoefficients(params: CalculatorParams): Coefficients {
   return { walls: base + areaSteps * perStep, wall_openings: wallOpenings };
 }
 
-function partitionsCoefficient(params: CalculatorParams): number {
-  const data = CALCULATOR_COEFFICIENTS.additional_elements.partitions;
+function partitionsCoefficient(params: CalculatorParams, model: CalculatorCoefficientModel): number {
+  const data = model.additional_elements.partitions;
   const partitions = params.partitions.reduce((sum, partition) => {
     if (!partition.enabled) return sum;
     const item = data[partition.kind];
@@ -249,8 +258,8 @@ function partitionsCoefficient(params: CalculatorParams): number {
     (params.partition_gates.enabled ? params.partition_gates.count * data.gates : 0);
 }
 
-function parapetCoefficient(params: CalculatorParams): number {
-  const data = CALCULATOR_COEFFICIENTS.additional_elements.parapet;
+function parapetCoefficient(params: CalculatorParams, model: CalculatorCoefficientModel): number {
+  const data = model.additional_elements.parapet;
   let coefficient = 0;
   if (params.parapet.long_sides > 0) {
     const length = params.building_length_m * params.parapet.long_sides;
@@ -277,18 +286,21 @@ function calculateArea(params: CalculatorParams): number {
   return footprint + floor + mezzanines;
 }
 
-export function calculate(params: CalculatorParams): CalculatorResult {
+export function calculate(
+  params: CalculatorParams,
+  model: CalculatorCoefficientModel = CALCULATOR_COEFFICIENTS,
+): CalculatorResult {
   const issues = validateParams(params);
   const basePrice = params.base_price_rub;
   const seismicCoefficient = params.seismic === 8 ? 0.2 : params.seismic === 9 ? 0.4 : 0;
   const coefficients: Coefficients = {
-    frame: baseCoefficient(params) + spanCoefficient(params) + heightCoefficient(params) +
+    frame: baseCoefficient(params, model) + spanCoefficient(params, model) + heightCoefficient(params, model) +
       lengthAndStepCoefficient(params) + seismicCoefficient,
-    ...additionsCoefficients(params),
-    roof: roofCoefficient(params),
-    ...wallAndOpeningCoefficients(params),
-    partitions: partitionsCoefficient(params),
-    parapets: parapetCoefficient(params),
+    ...additionsCoefficients(params, model),
+    roof: roofCoefficient(params, model),
+    ...wallAndOpeningCoefficients(params, model),
+    partitions: partitionsCoefficient(params, model),
+    parapets: parapetCoefficient(params, model),
   };
 
   if (!params.project_sections.km) {
@@ -304,7 +316,7 @@ export function calculate(params: CalculatorParams): CalculatorResult {
   const cost = costRub / 1000;
   const term = costRub / 180 / 1000 * 20;
   const area = calculateArea(params);
-  const metalConsumption = systemData(params.system).metal_consumption_kg_m2;
+  const metalConsumption = systemData(params.system, model).metal_consumption_kg_m2;
   const totalWeight = area * metalConsumption / 1000;
 
   const labels: Record<string, string> = {

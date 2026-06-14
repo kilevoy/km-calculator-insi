@@ -262,6 +262,7 @@ export function AdminASModelPage() {
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
+            <a href="?admin=km" className="admin-dark-button">Модель КМ</a>
             <input
               ref={importRef}
               type="file"

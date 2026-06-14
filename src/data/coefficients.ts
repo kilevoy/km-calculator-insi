@@ -1219,3 +1219,13 @@ export const CALCULATOR_COEFFICIENTS = {
     ]
   }
 };
+
+type MutableModel<T> =
+  T extends number ? number :
+  T extends string ? string :
+  T extends boolean ? boolean :
+  T extends ReadonlyArray<infer U> ? Array<MutableModel<U>> :
+  T extends object ? { -readonly [K in keyof T]: MutableModel<T[K]> } :
+  T;
+
+export type CalculatorCoefficientModel = MutableModel<typeof CALCULATOR_COEFFICIENTS>;

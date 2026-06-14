@@ -10,6 +10,7 @@ import { Calculator, Settings, History, FileText } from 'lucide-react';
 import { formatCurrency, formatDays } from './utils/formatters';
 import { createCalculationNumber } from './utils/report-identity';
 import { AdminASModelPage } from './components/AdminASModelPage';
+import { AdminKMModelPage } from './components/AdminKMModelPage';
 
 function CalculatorApp() {
   const {
@@ -53,6 +54,7 @@ function CalculatorApp() {
             </div>
           </div>
           <div className="hidden items-center gap-4 text-xs font-medium text-insi-slate-500 sm:flex">
+            <a href="?admin=km" className="font-semibold text-orange-600 hover:underline">Модель КМ</a>
             <a href="?admin=as" className="font-semibold text-insi-blue hover:underline">Модель АС</a>
             <span>Базовая цена: {params.base_price_rub.toLocaleString('ru-RU')} руб.</span>
             <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
@@ -77,6 +79,10 @@ function CalculatorApp() {
           </div>
           <div className="text-[10px] text-insi-slate-400 font-medium border border-insi-slate-200 bg-white px-3 py-1.5 rounded-xl self-start sm:self-auto shadow-sm">
             Версия Excel-калькулятора: <span className="font-bold text-insi-slate-700">R2.0.1</span>
+          </div>
+          <div className="flex gap-2 sm:hidden">
+            <a href="?admin=km" className="rounded-lg border border-orange-200 bg-orange-50 px-3 py-2 text-[10px] font-bold text-orange-700">Модель КМ</a>
+            <a href="?admin=as" className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-[10px] font-bold text-blue-700">Модель АС</a>
           </div>
         </section>
 
@@ -234,7 +240,10 @@ function CalculatorApp() {
 
 function App() {
   const searchParams = new URLSearchParams(window.location.search);
-  return searchParams.get('admin') === 'as' ? <AdminASModelPage /> : <CalculatorApp />;
+  const adminPage = searchParams.get('admin');
+  if (adminPage === 'km') return <AdminKMModelPage />;
+  if (adminPage === 'as') return <AdminASModelPage />;
+  return <CalculatorApp />;
 }
 
 export default App;

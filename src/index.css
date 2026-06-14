@@ -200,6 +200,23 @@ input:-webkit-autofill:focus {
 .admin-preview-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgb(59 130 246 / 0.15); }
 .admin-metric-label { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #64748b; }
 .admin-metric-value { margin-top: 3px; display: block; font-size: 18px; color: #f8fafc; }
+.km-coef-group { overflow: hidden; border: 1px solid #dbe2ea; background: #fff; }
+.km-coef-group summary { display: flex; cursor: pointer; list-style: none; align-items: center; gap: 10px; background: #f8fafc; padding: 11px 13px; }
+.km-coef-group summary::-webkit-details-marker { display: none; }
+.km-coef-group summary span { font-size: 12px; font-weight: 900; text-transform: capitalize; color: #1e293b; }
+.km-coef-group summary small { margin-left: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; color: #94a3b8; }
+.km-coef-group[open] summary svg { transform: rotate(180deg); }
+.admin-coef-label { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #94a3b8; }
+.admin-coef-reference { margin-top: 4px; display: block; font-size: 13px; font-weight: 800; color: #64748b; }
+.admin-coef-input { margin-top: 3px; height: 34px; width: 100%; border: 1px solid #cbd5e1; border-radius: 5px; padding: 6px 8px; font-size: 13px; font-weight: 800; color: #0f172a; outline: none; }
+.admin-coef-input:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgb(249 115 22 / .12); }
+.admin-icon-button { display: flex; height: 34px; width: 34px; align-items: center; justify-content: center; border: 1px solid #cbd5e1; border-radius: 5px; color: #64748b; }
+.admin-icon-button:hover:not(:disabled) { border-color: #f97316; background: #fff7ed; color: #c2410c; }
+.admin-icon-button:disabled { cursor: not-allowed; opacity: .25; }
+.admin-dark-field { display: flex; min-width: 0; flex-direction: column; gap: 5px; }
+.admin-dark-field span { font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #94a3b8; }
+.admin-dark-field input, .admin-dark-field select { min-height: 38px; min-width: 0; width: 100%; border: 1px solid #334155; border-radius: 6px; background: #0f172a; padding: 8px 9px; color: #fff; outline: none; }
+.admin-dark-field input:focus, .admin-dark-field select:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgb(249 115 22 / .12); }
 
 @media (max-width: 640px) {
   .admin-sheet { padding: 16px; }
